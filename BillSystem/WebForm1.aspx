@@ -7,42 +7,31 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">    
-        <div>
-            <button type="button" id="btnAddnew">Add New</button>
-            <table border="2">
+    <form id="form1" runat="server">
+        <input type="button" id="btnAddnew" value="Add New" style="background-color: MediumSlateBlue; color: white" />
+        <table border="2">
+            <thead>
                 <tr>
                     <th>SrNo</th>
                     <th>Item Code</th>
                     <th>Item Name</th>
-                    <th>GST</th>
-                    <th>Price</th>
-                    <th>Price with GST</th>
-                    <th>GST</th>
-                    <th>Qty</th>
-                    <th>Discount</th>
-                    <th>Total GST</th>
-                    <th>Total with GST and Discount</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Mobile Number</th>
+                    <th>Address</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Pin Code</th>
+                    <th>Date Of Brith</th>
+                    <th>Gender</th>
                 </tr>
-            </table>
-        </div>
-
-        <br />
-        <br />
-
-        <table id="tblForm" border="1">
-            <tr>
-                <td>
-                    <label>name</label>
-                </td>
-                <td>
-                    <input id="txtItemCode" type="text" name="Item Name" />
-                </td>
-            </tr>
+            </thead>
         </table>
-    </form>
+    </form>   
 </body>
+    <script src="Scripts/jquery-3.6.3.js"></script>
+    <script type="text/javascript">
+
+    </script>
 </html>
