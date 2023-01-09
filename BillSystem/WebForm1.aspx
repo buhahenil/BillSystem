@@ -9,6 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <input type="button" id="btnAddnew" value="Add New" style="background-color: MediumSlateBlue; color: white" />
+        <input type="search" id="site-search" name="q">
         <table border="2">
             <thead>
                 <tr>
