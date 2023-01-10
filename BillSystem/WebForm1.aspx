@@ -8,31 +8,21 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <input type="button" id="btnAddnew" value="Add New" style="background-color: MediumSlateBlue; color: white" />
-        <input type="search" id="site-search" name="q">
-        <table border="2">
-            <thead>
-                <tr>
-                    <th>SrNo</th>
-                    <th>Item Code</th>
-                    <th>Item Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Mobile Number</th>
-                    <th>Address</th>
-                    <th>Country</th>
-                    <th>State</th>
-                    <th>City</th>
-                    <th>Pin Code</th>
-                    <th>Date Of Brith</th>
-                    <th>Gender</th>
-                </tr>
-            </thead>
-        </table>
+        <%--<input type="button" id="btnAddnew" value="Add New" style="background-color: MediumSlateBlue; color: white" />--%>
+        <input type="search" id="searchBox" name="searchbox" placeholder="Search Box">
+
+
+        
+        
     </form>   
 </body>
     <script src="Scripts/jquery-3.6.3.js"></script>
     <script type="text/javascript">
-
+        $(document).ready(function () {
+            $("#searchBox").select(function () {
+                var selectrecord = {};
+                selectrecord.
+            });
+        });
     </script>
 </html>
