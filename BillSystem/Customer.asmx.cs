@@ -7,6 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+
+
 
 namespace BillSystem
 {
@@ -23,11 +26,12 @@ namespace BillSystem
     {
         public string connectionString = ConfigurationManager.ConnectionStrings["BillSystem"].ConnectionString;
 
+        
+
         [WebMethod]
         
         public string GetCustomer(string Customerid)
         {
-
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("getRecord", con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
