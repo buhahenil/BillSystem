@@ -8,33 +8,41 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <%--<input type="button" id="btnAddnew" value="Add New" style="background-color: MediumSlateBlue; color: white" />--%>
-        
-        <input type="search" id="searchBox" name="searchbox" placeholder="Search Box">
+        <div id="Customer">
+            <table border="2" id="tblForm1">
+                <tr>
+                    <td>
+                        <span id="lblFirstName">Customer FirstName</span>
+                    </td>
+                    <td>
+                        <select name="Country" id="ddlCountry">
+                            <option value="0">--Select Country--</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-    </form>   
+        <div id="Item">
+            <table border="2" id="tblForm2">
+                <tr>
+                    <td>
+                        <span id="lblFirstName">Customer FirstName</span>
+                    </td>
+                    <td>
+                        <select name="Country" id="ddlCountry">
+                            <option value="0">--Select Country--</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
 </body>
     <script src="Scripts/jquery-3.6.3.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#searchBox").on("keyup", function () {
-                var value = $(this).val();
-                value
-                $ajax({
-                    url: "/WebForm1.aspx/getRecord",
-                    type: "POST",
-                    datatype: "json",
-                    ContentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(data),
-                    success: function (data) {
-                        console.log();
-                    },
-                    error: function (err) {
-                        //debugger;
-                        console.log(err);
-                    }
-                });
-            });
-        });
-    </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
 </html>
