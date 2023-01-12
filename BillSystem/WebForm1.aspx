@@ -9,86 +9,90 @@
 <body>
     <form id="form1" runat="server">
         <div id="Customer" align="center">
-            <table border="2" id="tblForm1">
+            <table id="tblForm1" border="1">
                 <tr>
                     <td>
-                        <span id="lblFirstName">Customer</span>
+                        <span id="lblFirstName">Customer Name</span>
                     </td>
                     <td>
-                        <select name="CustomerFirstName" id="cusFirstName">
-                            <option value="0">--Customer FirstName--</option>
-                        </select>
+                        <input type="text" id="cusFirstName" name="searchbox" />
                     </td>
                 </tr>
             </table>
         </div>
         <br />
+
         <div id="Item" align="center">
             <h3>Item</h3>
-            <table width="100%" id="tblForm2">
-                <tr>
-                    <td>Item Code</td>
-                    <td>Item Name</td>
-                    <td>GST</td>
-                    <td>Price</td>
-                    <td>Price with GST</td>
-                    <td>GST</td>
-                    <td>Qty</td>
-                    <td>Discount</td>
-                    <td>Total GST</td>
-                    <td>Total with GST and Discount</td>
-                    <td>Add New Row</td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()"/>
-                    </td>
+            <table width="50%" id="tblForm2">
+                <thead>
+                    <tr>
+                        <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>GST</th>
+                        <th>Price</th>
+                        <th>Price with GST</th>
+                        <th>GST</th>
+                        <th>Qty</th>
+                        <th>Discount</th>
+                        <th>Total GST</th>
+                        <th>Total with GST and Discount</th>
+                        <th>Delete</th>
+                        <th><input type="button" id="addnewrow" value="Add New Row" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()" />
+                        </td>
 
-                    <td>
-                        <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()"/>
-                    </td>
+                        <td>
+                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()" />
+                        </td>
 
-                    <td>
-                        <select id="gdt">
-                            <option value="5%">5%</option>
-                            <option value="12%">12%</option>
-                            <option value="18%">18%</option>
-                            <option value="28%">28%</option>
-                        </select>
-                    </td>
+                        <td>
+                            <select id="gdt">
+                                <option value="5%">5%</option>
+                                <option value="12%">12%</option>
+                                <option value="18%">18%</option>
+                                <option value="28%">28%</option>
+                            </select>
+                        </td>
 
-                    <td>
-                        <input type="text" id="price" name="price"/>
-                    </td>
+                        <td>
+                            <input type="text" id="price" name="price" />
+                        </td>
 
-                    <td>
-                        <input type="text" id="pricewithgst" name="price">
-                    </td>
+                        <td>
+                            <input type="text" id="pricewithgst" name="price" />
+                        </td>
 
-                    <td>
-                        <input type="text" id="priwithgst" placeholder="GST(Price with GST - Price)"/>
-                    </td>
+                        <td>
+                            <input type="text" id="priwithgst" placeholder="GST(Price with GST - Price)" />
+                        </td>
 
-                    <td>
-                        <input type="text" id="qty" name="qty"/>
-                    </td>
+                        <td>
+                            <input type="text" id="qty" name="qty" />
+                        </td>
 
-                    <td>
-                        <input type="text" id="discount" name="Discount"/>
-                    </td>
+                        <td>
+                            <input type="text" id="discount" name="Discount" />
+                        </td>
 
-                    <td>
-                        <input type="text" id="totalgst" name="Total GST"/>
-                    </td>
+                        <td>
+                            <input type="text" id="totalgst" name="Total GST" />
+                        </td>
 
-                    <td>
-                        <input type="text" id="totalwithgstanddiscount" name="Total with GST and Discount"/>
-                    </td>
+                        <td>
+                            <input type="text" id="totalwithgstanddiscount" name="Total with GST and Discount" />
+                        </td>
 
-                    <td>
-                        <input type="button" id="newrow" name="AddNewRow" value="Add New Row"/>
-                    </td>
-                </tr>
+                        <td>
+                            <input type="button" id="rowdelete" name="Delete" value="Delete" />
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <br />
@@ -98,10 +102,22 @@
     </form>
 </body>
     <script src="Scripts/jquery-3.6.3.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        
-        
-    });
-</script>
+    <script src="Scripts/jquery-ui-1.13.2.js"></script>
+    <script src="Scripts/jquery-ui-1.13.2.min.js"></script>
+    <script type="text/javascript">
+  
+      $(document).ready(function (){
+          $("#cusFirstName").autocomplete({
+            source: 'Customer.asmx/spSelectAllCustomers'
+          });
+          //add button click than row
+          $('#tblForm2').on('click', '#addnewrow', function () {
+              var tr = "<tr>" + "<td><input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td>" + "<td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td> " + " <td><select id='gdt'> " + " <option value='5 % '>5%</option> " + " <option value='12 % '>12%</option>" + "<option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='text' id='price' name='price' /></td>" + "<td><input type='text' id='pricewithgst' name='price'/></td>" + "<td><input type='text' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td>" + "<td> <input type='text' id='qty' name='qty' /></td> " + "<td><input type='text' id='discount' name='Discount' /></td>" + "<td><input type='text' id='totalgst' name='Total GST' /></td>" + "<td><input type='text' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td>" + "<td><input type='button' id='rowdelete' name='Delete' value='Delete' /></td>" + "</tr>"
+              $('tbody').append(tr);
+          });
+          $('tbody').on('click', '#rowdelete', function () {
+              $(this).parent().parent().remove();
+          });
+      });
+    </script>
 </html>
