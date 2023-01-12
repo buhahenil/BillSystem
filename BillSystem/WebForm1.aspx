@@ -24,7 +24,7 @@
 
         <div id="Item" align="center">
             <h3>Item</h3>
-            <table width="50%" id="tblForm2">
+            <table width="50%" id="tblForm2" border="2">
                 <thead>
                     <tr>
                         <th>Item Code</th>
@@ -41,14 +41,14 @@
                         <th><input type="button" id="addnewrow" value="Add New Row" /></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tblPage">
                     <tr>
                         <td>
-                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()" />
+                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()"/>
                         </td>
 
                         <td>
-                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()" />
+                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()"/>
                         </td>
 
                         <td>
@@ -111,9 +111,9 @@
             source: 'Customer.asmx/spSelectAllCustomers'
           });
           //add button click than row
-          $('#tblForm2').on('click', '#addnewrow', function () {
+          $('thead').on('click', '#addnewrow', function () {
               var tr = "<tr>" + "<td><input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td>" + "<td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td> " + " <td><select id='gdt'> " + " <option value='5 % '>5%</option> " + " <option value='12 % '>12%</option>" + "<option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='text' id='price' name='price' /></td>" + "<td><input type='text' id='pricewithgst' name='price'/></td>" + "<td><input type='text' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td>" + "<td> <input type='text' id='qty' name='qty' /></td> " + "<td><input type='text' id='discount' name='Discount' /></td>" + "<td><input type='text' id='totalgst' name='Total GST' /></td>" + "<td><input type='text' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td>" + "<td><input type='button' id='rowdelete' name='Delete' value='Delete' /></td>" + "</tr>"
-              $('tbody').append(tr);
+              $('#tblPage').append(tr);
           });
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
