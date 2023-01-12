@@ -8,7 +8,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div>
         <div id="Customer" align="center">
+            <h3>-: Customer :-</h3>
             <table id="tblForm1" border="1">
                 <tr>
                     <td>
@@ -23,7 +25,7 @@
         <br />
 
         <div id="Item" align="center">
-            <h3>Item</h3>
+            <h3>-: Item :-</h3>
             <table width="50%" id="tblForm2" border="2">
                 <thead>
                     <tr>
@@ -145,7 +147,13 @@
             </table>
         </div>
         <br /><br />
-        <div align="center">
+            <div id="paymentandsubmit"> 
+                <label for="payment">Customer Payment Method</label>
+                    <input id="cblPayment_1" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cash" />Cash
+                    <input id="cblPayment_2" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Net Banking" />Net Banking
+                    <input id="cblPayment_3" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cheak" />Cheak
+                    <input id="cblPayment_4" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="UPI" />UPI
+            </div>
             <input type="submit" id="btnSubmit" value="Submit" />
         </div>
     </form>
