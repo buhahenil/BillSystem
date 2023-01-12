@@ -95,10 +95,59 @@
                 </tbody>
             </table>
         </div>
-        <br />
-        <%--<div align="center">
+        <br /><br />
+
+        <div id="total">
+            <table id="From3" border="2" align="right">
+                <tr>
+                    <td>
+                        <span id="lblTotol">Total</span>
+                    </td>
+                    <td>
+                        <input type="text" id="txtTotal" name="total" placeholder="Total Amount"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <span id="lblAdjustment">Adjustment Discount Type</span>
+                    </td>
+                    <td>
+                        <input type="text" id="txtAdjustmentType" name="total" placeholder="Adjustment Discount Type"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span id="lblAdjustmentDiscount">Adjustment Discount</span>
+                    </td>
+                    <td>
+                        <input type="text" id="txtAdjDiscount" name="total" placeholder="Adjustment Discount"/>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <span id="lblGSTAmount">GST Amount</span>
+                    </td>
+                    <td>
+                        <input type="text" id="txtGSTAmount" name="total" placeholder="GST Amount"/>
+                    </td>
+                </tr>       
+                
+                <tr>
+                    <td>
+                        <span id="lblBillableAmount">Billable Amount</span>
+                    </td>
+                    <td>
+                        <input type="text" id="txtBillableAmount" name="total" placeholder="Billable Amount"/>
+                    </td>
+                </tr> 
+            </table>
+        </div>
+        <br /><br />
+        <div align="center">
             <input type="submit" id="btnSubmit" value="Submit" />
-        </div>--%>
+        </div>
     </form>
 </body>
     <script src="Scripts/jquery-3.6.3.js"></script>
