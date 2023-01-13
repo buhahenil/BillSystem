@@ -54,7 +54,7 @@
                         </td>
 
                         <td>
-                            <select id="gdt">
+                            <select id="gst" name="GST" onselect="calrow(this)">
                                 <option value="5%">5%</option>
                                 <option value="12%">12%</option>
                                 <option value="18%">18%</option>
@@ -63,31 +63,31 @@
                         </td>
 
                         <td>
-                            <input type="text" id="price" name="price" />
+                            <input type="number" id="price" name="Price" onchange="calrow(this)" />
                         </td>
 
                         <td>
-                            <input type="text" id="pricewithgst" name="price" />
+                            <input type="number" id="pricewithgst" name="Price with GST" />
                         </td>
 
                         <td>
-                            <input type="text" id="priwithgst" placeholder="GST(Price with GST - Price)" />
+                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" />
                         </td>
 
                         <td>
-                            <input type="text" id="qty" name="qty" />
+                            <input type="number" id="qty" name="qty" onchange="calrow(this)" />
                         </td>
 
                         <td>
-                            <input type="text" id="discount" name="Discount" />
+                            <input type="number" id="discount" name="Discount" onchange="calrow(this)"/>
                         </td>
 
                         <td>
-                            <input type="text" id="totalgst" name="Total GST" />
+                            <input type="number" id="totalgst" name="Total GST" />
                         </td>
 
                         <td>
-                            <input type="text" id="totalwithgstanddiscount" name="Total with GST and Discount" />
+                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" />
                         </td>
 
                         <td>
@@ -106,7 +106,7 @@
                         <span id="lblTotol">Total</span>
                     </td>
                     <td>
-                        <input type="text" id="txtTotal" name="total" placeholder="Total Amount"/>
+                        <input type="text" id="txtTotal" name="Total" placeholder="Total Amount"/>
                     </td>
                 </tr>
                 
@@ -115,7 +115,7 @@
                         <span id="lblAdjustment">Adjustment Discount Type</span>
                     </td>
                     <td>
-                        <input type="text" id="txtAdjustmentType" name="total" placeholder="Adjustment Discount Type"/>
+                        <input type="text" id="txtAdjustmentType" name="AdjustmentDiscountType" placeholder="Adjustment Discount Type"/>
                     </td>
                 </tr>
                 <tr>
@@ -123,7 +123,7 @@
                         <span id="lblAdjustmentDiscount">Adjustment Discount</span>
                     </td>
                     <td>
-                        <input type="text" id="txtAdjDiscount" name="total" placeholder="Adjustment Discount"/>
+                        <input type="text" id="txtAdjDiscount" name="AdjustmentDiscount" placeholder="Adjustment Discount"/>
                     </td>
                 </tr>
                 
@@ -132,7 +132,7 @@
                         <span id="lblGSTAmount">GST Amount</span>
                     </td>
                     <td>
-                        <input type="text" id="txtGSTAmount" name="total" placeholder="GST Amount"/>
+                        <input type="text" id="txtGSTAmount" name="GSTAmount" placeholder="GST Amount"/>
                     </td>
                 </tr>       
                 
@@ -141,18 +141,18 @@
                         <span id="lblBillableAmount">Billable Amount</span>
                     </td>
                     <td>
-                        <input type="text" id="txtBillableAmount" name="total" placeholder="Billable Amount"/>
+                        <input type="text" id="txtBillableAmount" name="BillableAmount" placeholder="Billable Amount"/>
                     </td>
                 </tr> 
             </table>
         </div>
         <br /><br />
             <div id="paymentandsubmit"> 
-                <label for="payment">Customer Payment Method</label>
-                    <input id="cblPayment_1" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cash" />Cash
-                    <input id="cblPayment_2" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Net Banking" />Net Banking
-                    <input id="cblPayment_3" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cheak" />Cheak
-                    <input id="cblPayment_4" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="UPI" />UPI
+                <label for="payment">Customer Payment Method :- </label>
+                <input id="cblPayment_1" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cash" />Cash
+                <input id="cblPayment_2" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Net Banking" />Net Banking
+                <input id="cblPayment_3" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cheak" />Cheak
+                <input id="cblPayment_4" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="UPI" />UPI
             </div>
             <input type="submit" id="btnSubmit" value="Submit" />
         </div>
@@ -165,16 +165,47 @@
   
       $(document).ready(function (){
           $("#cusFirstName").autocomplete({
-            source: 'Customer.asmx/spSelectAllCustomers'
+              minLength: 3,
+              source: function (request, response)
+              {
+                  $.ajax({
+                      url: 'Customer.asmx/GetCustomer',
+                      type: 'POST',
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      data: JSON.stringify({ CustmoerFirstName: request.CustmoerFirstName }),
+                      success: function (data){
+                          response(data.d)
+                          console.log(data.d)
+                      },
+                      error: function (err) {
+                          console.log(err);
+                      }
+                  });
+              }
           });
-          //add button click than row
+          //add button click than row AND delete
           $('thead').on('click', '#addnewrow', function () {
-              var tr = "<tr>" + "<td><input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td>" + "<td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td> " + " <td><select id='gdt'> " + " <option value='5 % '>5%</option> " + " <option value='12 % '>12%</option>" + "<option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='text' id='price' name='price' /></td>" + "<td><input type='text' id='pricewithgst' name='price'/></td>" + "<td><input type='text' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td>" + "<td> <input type='text' id='qty' name='qty' /></td> " + "<td><input type='text' id='discount' name='Discount' /></td>" + "<td><input type='text' id='totalgst' name='Total GST' /></td>" + "<td><input type='text' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td>" + "<td><input type='button' id='rowdelete' name='Delete' value='Delete' /></td>" + "</tr>"
+              var tr = "<tr>" + "<td><input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td>" + "<td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td> " + " <td><select id='gdt'> " + " <option value='5 % '>5%</option> " + " <option value='12 % '>12%</option>" + "<option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='number' id='price' name='price' /></td>" + "<td><input type='number' id='pricewithgst' name='price'/></td>" + "<td><input type='number' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td>" + "<td> <input type='number' id='qty' name='qty' /></td> " + "<td><input type='number' id='discount' name='Discount' /></td>" + "<td><input type='number' id='totalgst' name='Total GST' /></td>" + "<td><input type='number' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td>" + "<td><input type='button' id='rowdelete' name='Delete' value='Delete' /></td>" + "</tr>"
               $('#tblPage').append(tr);
           });
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
           });
+
+          $(function calrow() {
+              /*var count = $('thead td').length;*/
+              var count = $(this).parent('table').length;
+              //alert(count);
+
+              var GST = $("#gst").val();
+              var Price = $("#price").val();
+              var pricewithgst = GST * Price
+              $("#pricewithgst").val(pricewithgst);
+          });
+
+         
+
       });
     </script>
 </html>
