@@ -56,11 +56,11 @@
                         </td>
 
                         <td>
-                            <select id="gst" name="GST" onselect="calc(this.value);">
-                                <option value="5%">5%</option>
-                                <option value="12%">12%</option>
-                                <option value="18%">18%</option>
-                                <option value="28%">28%</option>
+                            <select id="gst" name="Gst">
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
+                                <option value="18">18%</option>
+                                <option value="28">28%</option>
                             </select>
                         </td>
 
@@ -77,11 +77,11 @@
                         </td>
 
                         <td>
-                            <input type="number" id="qty" name="qty" onchange="calc(this);" />
+                            <input type="number" id="qty" name="qty" onchange="calc(this);"/>
                         </td>
 
                         <td>
-                            <input type="number" id="discount" name="Discount" onchange="calc(this)"/>
+                            <input type="number" id="discount" name="Discount" onchange="calc(this);"/>
                         </td>
 
                         <td>
@@ -201,12 +201,22 @@
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
           });
-          
-          function calc(v) {
-              var countrow = $(v).parent().parent().index();
-              alert(countrow);
-          };
 
+          //$('#addnewrow').click(function () {
+          //    var row_index = $(this).parent('table').index();
+          //    alert(row_index);
+          //});
       });
+      function calc(v) {
+          var indexRow = $(v).parent().parent().index();
+          //alert(indexRow);
+
+          var GST = $("#gst").val();
+          var Price = $("#price").val();
+          console.log(Price);
+
+          //var Price_with_GST = Price + (Price * 0.18);
+          //console.log(Price_with_GST);
+      };
     </script>
 </html>
