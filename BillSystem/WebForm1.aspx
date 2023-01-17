@@ -56,7 +56,7 @@
                         </td>
 
                         <td>
-                            <select id="gst" name="Gst">
+                            <select id="gst" onchange="calc(this);">
                                 <option value="5">5%</option>
                                 <option value="12">12%</option>
                                 <option value="18">18%</option>
@@ -65,7 +65,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="price" name="Price" onchange="calc(this);" />
+                            <input type="number" id="price" onchange="calc(this);" />
                         </td>
 
                         <td>
@@ -93,7 +93,7 @@
                         </td>
 
                         <td>
-                            <button type="button" id="rowdelete" name="Delete" onclick="btndelete()">Delete</button>
+                            <button type="button" id="rowdelete" name="Delete" >Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -167,31 +167,30 @@
   
       $(document).ready(function (){
           $("#cusFirstName").autocomplete({
-              minLength: 3,
-              source: function (request, response)
-              {
+              source: function (request, response) {
                   $.ajax({
-                      url: 'Customer.asmx/GetCustomer',
-                      type: 'POST',
+                      type: "POST",
                       contentType: "application/json; charset=utf-8",
+                      url: "Customer.asmx/GetCustomer",
+                      data: "{'CustomerFirstName':'" + request.CustomerFirstName + "'}",
                       dataType: "json",
-                      data: JSON.stringify({ CustmoerFirstName: request.CustmoerFirstName }),
-                      success: function (data){
-                          response(data.d)
-                          console.log(data.d)
+                      success: function (data) {
+                          response(data.d);
                       },
-                      error: function (err) {
-                          console.log(err);
+                      error: function (result) {
+                          alert("Error");
                       }
                   });
-              }
+              },
+              minLength: 3
           });
+
           //add button click than row AND delete
           //$('thead').on('click', '#addnewrow', function () {
           //    var tr = "<tr>" + "<td><input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td>" + "<td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td> " + " <td><select id='gdt'> " + " <option value='5 % '>5%</option> " + " <option value='12 % '>12%</option>" + "<option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='number' id='price' name='price' /></td>" + "<td><input type='number' id='pricewithgst' name='price'/></td>" + "<td><input type='number' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td>" + "<td> <input type='number' id='qty' name='qty' /></td> " + "<td><input type='number' id='discount' name='Discount' /></td>" + "<td><input type='number' id='totalgst' name='Total GST' /></td>" + "<td><input type='number' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td>" + "<td><input type='button' id='rowdelete' name='Delete' value='Delete' /></td>" + "</tr>"
           //    $('#tblPage').append(tr);
           //});
-
+          
           $('#addnewrow').click(function () {
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
@@ -200,7 +199,7 @@
 
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
-          });
+          }); 
 
           //$('#addnewrow').click(function () {
           //    var row_index = $(this).parent('table').index();
@@ -211,12 +210,13 @@
           var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
-          var GST = $("#gst").val();
-          var Price = $("#price").val();
+          var gst = $("#gst")[indexrow].val();
+          console.log(gst);
+          var Price = $("#price")[indexRow].val();
           console.log(Price);
 
-          //var Price_with_GST = Price + (Price * 0.18);
-          //console.log(Price_with_GST);
+          var Price_with_GST = Price + ((Price * GST)/100);
+          console.log(Price_with_GST);
       };
     </script>
 </html>
