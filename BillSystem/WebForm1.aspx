@@ -210,13 +210,14 @@
           var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
-          var gst = $("#gst")[indexrow].val();
-          console.log(gst);
-          var Price = $("#price")[indexRow].val();
+          //var gst = $("#gst").val(indexRow);
+          //console.log(gst);
+          var Price = $("#price").val(indexRow);
           console.log(Price);
 
-          var Price_with_GST = Price + ((Price * GST)/100);
-          console.log(Price_with_GST);
+          //var Price_with_GST = Price + ((Price * GST)/100);
+          //console.log(Price_with_GST);
+          
       };
     </script>
 </html>
