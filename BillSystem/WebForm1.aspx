@@ -56,7 +56,7 @@
                         </td>
 
                         <td>
-                            <select id="gst" onchange="calc(this);" name="GST1">
+                            <select id="gst" onchange="calc(this)">
                                 <option value="5">5%</option>
                                 <option value="12">12%</option>
                                 <option value="18">18%</option>
@@ -65,7 +65,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="price" name="Price" onchange="calc(this);" />
+                            <input type="number" id="price" name="Price" onchange="calc(this)" />
                         </td>
 
                         <td>
@@ -77,11 +77,11 @@
                         </td>
 
                         <td>
-                            <input type="number" id="qty" onchange="calc(this);"/>
+                            <input type="number" id="qty" onchange="calc(this)"/>
                         </td>
 
                         <td>
-                            <input type="number" id="discount" name="Discount" onchange="calc(this);"/>
+                            <input type="number" id="discount" name="Discount" onchange="calc(this)"/>
                         </td>
 
                         <td>
@@ -214,18 +214,20 @@
           //var gst = $("#gst").val(indexRow);
           //console.log(gst);
 
-          var Price = $("#price").value(indexRow);
+          var Price = $("#price").eq[indexRow].val();
           console.log(Price);
 
           var Price_with_GST = Price + ((Price * GST)/100);
-          //console.log(Price_with_GST);
+          console.log(Price_with_GST);
 
           var GST = Price_with_GST - Price;
           $("#priwithgst").val(GST);
           //console.log(GST)
 
-          //var QTY = $("#qty").val(indexRow);
-          //console.log(QTY);
+          var QTY = $("#qty").val(indexRow);
+          console.log(QTY);
+
+          var totalGst = $("#totalgst").val();
       };
     </script>
 </html>
