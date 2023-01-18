@@ -56,7 +56,7 @@
                         </td>
 
                         <td>
-                            <select id="gst" onchange="calc(this);">
+                            <select id="gst" onchange="calc(this);" name="GST1">
                                 <option value="5">5%</option>
                                 <option value="12">12%</option>
                                 <option value="18">18%</option>
@@ -65,7 +65,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="price" onchange="calc(this);" />
+                            <input type="number" id="price" name="Price" onchange="calc(this);" />
                         </td>
 
                         <td>
@@ -77,7 +77,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="qty" name="qty" onchange="calc(this);"/>
+                            <input type="number" id="qty" onchange="calc(this);"/>
                         </td>
 
                         <td>
@@ -206,18 +206,37 @@
           //    alert(row_index);
           //});
       });
+
       function calc(v) {
           var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
           //var gst = $("#gst").val(indexRow);
           //console.log(gst);
-          var Price = $("#price").val(indexRow);
+
+          var Price = $("#price").value(indexRow);
           console.log(Price);
 
-          //var Price_with_GST = Price + ((Price * GST)/100);
+          var Price_with_GST = Price + ((Price * GST)/100);
           //console.log(Price_with_GST);
-          
+
+          var GST = Price_with_GST - Price;
+          $("#priwithgst").val(GST);
+          //console.log(GST)
+
+          //var QTY = $("#qty").val(indexRow);
+          //console.log(QTY);
       };
     </script>
 </html>
+
+<%--function Cal(defult) {
+
+var index = $(v).parent().parent().index();
+
+var qty = document. getElementsByNane(“qty") [index] .valu
+var rate = docunent.getElementsByname("rate") [index] .value;
+
+var amt = qty * rate;
+document.getElementsByName(“amt”) [index].value = amt;
+}--%>
