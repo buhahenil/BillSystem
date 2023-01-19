@@ -69,11 +69,11 @@
                         </td>
 
                         <td>
-                            <input type="number" id="pricewithgst" name="Price with GST" />
+                            <input type="number" id="pricewithgst" name="Price with GST" disabled="disabled" />
                         </td>
 
                         <td>
-                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" />
+                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" disabled="disabled"/>
                         </td>
 
                         <td>
@@ -85,11 +85,11 @@
                         </td>
 
                         <td>
-                            <input type="number" id="totalgst" name="Total GST" />
+                            <input type="number" id="totalgst" name="Total GST" disabled="disabled"/>
                         </td>
 
                         <td>
-                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" />
+                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" disabled="disabled"/>
                         </td>
 
                         <td>
@@ -211,29 +211,32 @@
           //var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
-          var GST = $(v).parent().parent().find("#gst").val();
-          console.log(gst);
+          var GST = parseFloat($(v).parent().parent().find("#gst").val());
+          //console.log(gst);
 
-          var Price = $(v).parent().parent().find("#price").val();
-          console.log(Price);
+          var Price = parseFloat($(v).parent().parent().find("#price").val());
+         //console.log(Price);
 
-          var PricewithGST = Price + ((Price * GST) / 100);
-          var Price = $(v).parent().parent().find("#pricewithgst").val(PricewithGST);
-          console.log(PricewithGST);
+          var Price_with_GST = Price + ((Price * GST) / 100);
+          $(v).parent().parent().find("#pricewithgst").val(Price_with_GST.toFixed(2));
+          //console.log(Price_with_GST);
 
-          //var GST = Price_with_GST - Price;
-          //$("#priwithgst").val(GST);
-          ////console.log(GST)
+          var GST2 = Price_with_GST - Price;
+          $(v).parent().parent().find("#priwithgst").val(parseFloat(GST2).toFixed(2));
+          //console.log(GST2);
 
-          //var QTY = $("#qty").val(indexRow);
-          //console.log(QTY);
+          var Qty = parseFloat($(v).parent().parent().find("#qty").val());
+          console.log(Qty);
 
-          //var totalGst = $("#totalgst").val();
+          var Discount = parseFloat($(v).parent().parent().find("#discount").val());
+          console.log(Discount);
+
+          var TotalGST = GST2 * Qty;
+          $(v).parent().parent().find("#totalgst").val(parseFloat(TotalGST).toFixed(2));
+
+          var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
+          $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
+         
       };
     </script>
 </html>
-
-<%--var Price = 19;
-var GST = 18;
-var Price_with_GST = Price + ((Price * GST)/100);
-console.log(Price_with_GST);--%>
