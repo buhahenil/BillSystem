@@ -108,7 +108,7 @@
                         <span id="lblTotol">Total</span>
                     </td>
                     <td>
-                        <input type="text" id="txtTotal" name="Total" placeholder="Total Amount"/>
+                        <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" />
                     </td>
                 </tr>
                 
@@ -208,36 +208,50 @@
           //});
       });
 
-      function calc(v) {
+        function calc(v) {
           //var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
-          var GST = parseFloat($(v).parent().parent().find("#gst").val());
-          //console.log(gst);
+            var GST = parseFloat($(v).parent().parent().find("#gst").val());
+            //console.log(gst);
 
-          var Price = parseFloat($(v).parent().parent().find("#price").val());
-         //console.log(Price);
+            var Price = parseFloat($(v).parent().parent().find("#price").val());
+            //console.log(Price);
 
-          var Price_with_GST = Price + ((Price * GST) / 100);
-          $(v).parent().parent().find("#pricewithgst").val(Price_with_GST.toFixed(2));
-          //console.log(Price_with_GST);
+            var Price_with_GST = Price + ((Price * GST) / 100);
+            $(v).parent().parent().find("#pricewithgst").val(Price_with_GST.toFixed(2));
+            //console.log(Price_with_GST);
 
-          var GST2 = Price_with_GST - Price;
-          $(v).parent().parent().find("#priwithgst").val(parseFloat(GST2).toFixed(2));
-          //console.log(GST2);
+            var GST2 = Price_with_GST - Price;
+            $(v).parent().parent().find("#priwithgst").val(parseFloat(GST2).toFixed(2));
+            //console.log(GST2);
 
-          var Qty = parseFloat($(v).parent().parent().find("#qty").val());
-          console.log(Qty);
+            var Qty = parseFloat($(v).parent().parent().find("#qty").val());
+            //console.log(Qty);
 
-          var Discount = parseFloat($(v).parent().parent().find("#discount").val());
-          console.log(Discount);
+            var Discount = parseFloat($(v).parent().parent().find("#discount").val());
+            //console.log(Discount);
 
-          var TotalGST = GST2 * Qty;
-          $(v).parent().parent().find("#totalgst").val(parseFloat(TotalGST).toFixed(2));
+            var TotalGST = GST2 * Qty;
+            $(v).parent().parent().find("#totalgst").val(parseFloat(TotalGST).toFixed(2));
 
-          var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
-          $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
-         
-      };
+            var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
+            $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
+
+            GetTotal();
+        };
+        function GetTotal() {
+            /*Footer Calculation*/
+
+            var sum = 0;
+            //var Total = $("#totalwithgstanddiscount").val();
+            $("#totalwithgstanddiscount").each(function () {
+                sum += parseFloat($(this).val());
+                console.log(sum);
+                //$("#txtTotal").val(sum);
+            });
+        }
+
+
     </script>
 </html>
