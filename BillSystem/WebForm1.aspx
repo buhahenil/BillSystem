@@ -238,7 +238,7 @@
             var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
             $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
 
-            GetTotal();
+            // GetTotal();
         };
         function GetTotal() {
             /*Footer Calculation*/
