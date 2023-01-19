@@ -208,37 +208,32 @@
       });
 
       function calc(v) {
-          var indexRow = $(v).parent().parent().index();
+          //var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
-          //var gst = $("#gst").val(indexRow);
-          //console.log(gst);
+          var GST = $(v).parent().parent().find("#gst").val();
+          console.log(gst);
 
-          var Price = $("#price").eq[indexRow].val();
+          var Price = $(v).parent().parent().find("#price").val();
           console.log(Price);
 
-          var Price_with_GST = Price + ((Price * GST)/100);
-          console.log(Price_with_GST);
+          var PricewithGST = Price + ((Price * GST) / 100);
+          var Price = $(v).parent().parent().find("#pricewithgst").val(PricewithGST);
+          console.log(PricewithGST);
 
-          var GST = Price_with_GST - Price;
-          $("#priwithgst").val(GST);
-          //console.log(GST)
+          //var GST = Price_with_GST - Price;
+          //$("#priwithgst").val(GST);
+          ////console.log(GST)
 
-          var QTY = $("#qty").val(indexRow);
-          console.log(QTY);
+          //var QTY = $("#qty").val(indexRow);
+          //console.log(QTY);
 
-          var totalGst = $("#totalgst").val();
+          //var totalGst = $("#totalgst").val();
       };
     </script>
 </html>
 
-<%--function Cal(defult) {
-
-var index = $(v).parent().parent().index();
-
-var qty = document. getElementsByNane(“qty") [index] .valu
-var rate = docunent.getElementsByname("rate") [index] .value;
-
-var amt = qty * rate;
-document.getElementsByName(“amt”) [index].value = amt;
-}--%>
+<%--var Price = 19;
+var GST = 18;
+var Price_with_GST = Price + ((Price * GST)/100);
+console.log(Price_with_GST);--%>
