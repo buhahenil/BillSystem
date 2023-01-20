@@ -69,11 +69,11 @@
                         </td>
 
                         <td>
-                            <input type="number" id="pricewithgst" name="Price with GST" disabled="disabled" />
+                            <input type="number" id="pricewithgst" name="Price with GST" readonly="readonly" />
                         </td>
 
                         <td>
-                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" disabled="disabled"/>
+                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly"/>
                         </td>
 
                         <td>
@@ -85,11 +85,11 @@
                         </td>
 
                         <td>
-                            <input type="number" id="totalgst" name="Total GST" disabled="disabled"/>
+                            <input type="number" id="totalgst" name="Total GST" readonly="readonly"/>
                         </td>
 
                         <td>
-                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" disabled="disabled"/>
+                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" readonly="readonly"/>
                         </td>
 
                         <td>
@@ -108,7 +108,7 @@
                         <span id="lblTotol">Total</span>
                     </td>
                     <td>
-                        <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" />
+                        <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" readonly="readonly"/>
                     </td>
                 </tr>
                 
@@ -244,28 +244,27 @@
             
         };
         function GetTotal() {
-
-            
             //var sum = 0.0;
             //$('#totalwithgstanddiscount').each(function () {
             //    if ($(this).val() != '')
             //        sum += parseFloat($(this).val());
             //});
 
-            //$('#txtTotal').val(sum.toFixed(4));
-            //var sum = 0.0;
-            //$("#totalwithgstanddiscount").each(function () {
-            //    var amt = $(this).val();
-            //    sum += parseFloat(amt);
-            //});
-            //console.log(sum);
-
+            var sum = 0;
             $("#totalwithgstanddiscount").each(function () {
-                if (this.value != "")
-                    $("#txtTotal").val(parseFloat($("##txtTotal").val()) + parseFloat($(this).val()));
-            });
-        }
+                if (!isNaN(this.value) && this.value.length != 0) {
+                    sum += parseFloat(this.value);
+                }
 
+            });
+            $("#txtTotal").val(sum.toFixed(2));
+            //console.log(sum.toFixed(2));
+
+            //$("#totalwithgstanddiscount").each(function () {
+            //    if (this.value != "")
+            //        $("#txtTotal").text(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
+            //});
+        }
 
     </script>
 </html>
