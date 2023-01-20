@@ -43,5 +43,21 @@ namespace BillSystem
             con.Close();
             return JsonConvert.SerializeObject(dt);
         }
+
+        //public static List<string> GetCustomer(string CustomerFirstName)
+        //{
+        //    List<string> customer = new List<string>();
+        //    SqlConnection con = new SqlConnection(connectionString);
+        //    SqlCommand cmd = new SqlCommand("spSelectAllCustomers", con);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    cmd.Parameters.AddWithValue("@CustomerFirstName", CustomerFirstName);
+        //    con.Open();
+        //    SqlDataReader sdr = cmd.ExecuteReader();
+        //    sdr.Read();
+        //    customer.Add(sdr["CustomerFirstName"].ToString());
+        //    con.Close();
+        //    return customer;
+        //}
+
     }
 }

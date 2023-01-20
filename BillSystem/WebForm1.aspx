@@ -196,10 +196,12 @@
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
               $(row).removeClass('d-none');
+              GetTotal();
           });
           // Row Delete
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
+              GetTotal();
           }); 
 
           //$('#addnewrow').click(function () {
@@ -238,20 +240,34 @@
             var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
             $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
 
-            // GetTotal();
+            GetTotal();
+            
         };
         function GetTotal() {
-            /*Footer Calculation*/
 
-            var sum = 0;
-            //var Total = $("#totalwithgstanddiscount").val();
+            
+            //var sum = 0.0;
+            //$('#totalwithgstanddiscount').each(function () {
+            //    if ($(this).val() != '')
+            //        sum += parseFloat($(this).val());
+            //});
+
+            //$('#txtTotal').val(sum.toFixed(4));
+            //var sum = 0.0;
+            //$("#totalwithgstanddiscount").each(function () {
+            //    var amt = $(this).val();
+            //    sum += parseFloat(amt);
+            //});
+            //console.log(sum);
+
             $("#totalwithgstanddiscount").each(function () {
-                sum += parseFloat($(this).val());
-                console.log(sum);
-                //$("#txtTotal").val(sum);
+                if (this.value != "")
+                    $("#txtTotal").val(parseFloat($("##txtTotal").val()) + parseFloat($(this).val()));
             });
         }
 
 
     </script>
 </html>
+
+<%--https://stackoverflow.com/questions/36787479/calculations-in-a-dynamically-added-rows-using-jquery--%>
