@@ -17,7 +17,7 @@
                         <span id="lblFirstName">Customer Name</span>
                     </td>
                     <td>
-                        <input type="text" required="" id="cusFirstName" name="searchbox" />
+                        <input type="text" id="cusFirstName" name="searchbox" required=""/>
                     </td>
                 </tr>
             </table>
@@ -89,7 +89,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="totalwithgstanddiscount" class="totalamount" name="Total with GST and Discount" readonly="readonly" />
+                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" readonly="readonly" />
                         </td>
 
                         <td>
@@ -167,6 +167,7 @@
   
       $(document).ready(function (){
           $("#cusFirstName").autocomplete({
+              minLength: 3,
               source: function (request, response) {
                   $.ajax({
                       type: "POST",
@@ -182,7 +183,6 @@
                       }
                   });
               },
-              minLength: 3
           });
 
           //add button click than row AND delete
@@ -251,12 +251,11 @@
             //        sum += parseFloat($(this).val());
             //});
 
-            var sum = 0.0;
-            $(".totalamount").each(function () {
+            var sum = 0;
+            $().parent().parent().find("#totalwithgstanddiscount").each(function () {
                 sum += parseFloat($(this).val());
-                console.log(sum);
             });
-            $("#txtTotal").val(sum.toFixed(2));
+            $("#txtTotal").val(sum);
             //console.log(sum.toFixed(2));
 
             //$("#totalwithgstanddiscount").each(function () {
