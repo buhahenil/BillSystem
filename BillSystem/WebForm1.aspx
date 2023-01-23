@@ -17,7 +17,7 @@
                         <span id="lblFirstName">Customer Name</span>
                     </td>
                     <td>
-                        <input type="text" id="cusFirstName" name="searchbox" />
+                        <input type="text" required="" id="cusFirstName" name="searchbox" />
                     </td>
                 </tr>
             </table>
@@ -48,15 +48,15 @@
                 <tbody id="tblPage">
                     <tr id="Trow" class="d-none">
                         <td>
-                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()"/>
+                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()" />
                         </td>
 
                         <td>
-                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()"/>
+                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()" />
                         </td>
 
                         <td>
-                            <select id="gst" onchange="calc(this)">
+                            <select id="gst" onchange="calc(this)" >
                                 <option value="5">5%</option>
                                 <option value="12">12%</option>
                                 <option value="18">18%</option>
@@ -73,15 +73,15 @@
                         </td>
 
                         <td>
-                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly"/>
+                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly" />
                         </td>
 
                         <td>
-                            <input type="number" id="qty" onchange="calc(this)"/>
+                            <input type="number" id="qty" onchange="calc(this)" />
                         </td>
 
                         <td>
-                            <input type="number" id="discount" name="Discount" onchange="calc(this)"/>
+                            <input type="number" id="discount" name="Discount" onchange="calc(this)" />
                         </td>
 
                         <td>
@@ -89,7 +89,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" readonly="readonly"/>
+                            <input type="number" id="totalwithgstanddiscount" class="totalamount" name="Total with GST and Discount" readonly="readonly" />
                         </td>
 
                         <td>
@@ -191,13 +191,14 @@
           //    $('#tblPage').append(tr);
           //});
 
-          //Add New Row 
+          //Add New Row
           $('#addnewrow').click(function () {
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
               $(row).removeClass('d-none');
               GetTotal();
           });
+
           // Row Delete
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
@@ -207,9 +208,9 @@
           //$('#addnewrow').click(function () {
           //    var row_index = $(this).parent('table').index();
           //    alert(row_index);
-          //});
+          //});  this code is find row index
       });
-
+        
         function calc(v) {
           //var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
@@ -242,7 +243,7 @@
 
             GetTotal();
             
-        };
+        }; 
         function GetTotal() {
             //var sum = 0.0;
             //$('#totalwithgstanddiscount').each(function () {
@@ -250,12 +251,10 @@
             //        sum += parseFloat($(this).val());
             //});
 
-            var sum = 0;
-            $("#totalwithgstanddiscount").each(function () {
-                if (!isNaN(this.value) && this.value.length != 0) {
-                    sum += parseFloat(this.value);
-                }
-
+            var sum = 0.0;
+            $(".totalamount").each(function () {
+                sum += parseFloat($(this).val());
+                console.log(sum);
             });
             $("#txtTotal").val(sum.toFixed(2));
             //console.log(sum.toFixed(2));
@@ -269,4 +268,5 @@
     </script>
 </html>
 
-<%--https://stackoverflow.com/questions/36787479/calculations-in-a-dynamically-added-rows-using-jquery--%>
+<%-- https://stackoverflow.com/questions/36787479/calculations-in-a-dynamically-added-rows-using-jquery --%>
+<%-- https://stackoverflow.com/questions/54844804/calculate-the-sum-of-the-column-from-dynamically-created-rows-in-jquery --%>
