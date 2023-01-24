@@ -244,7 +244,7 @@
 
             $(v).parent().parent().find("#totalwithgstanddiscount").each(function () {
                 if (this.value != "")
-                    $("#txtTotal").val(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
+                $("#txtTotal").val(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
             });
             //calculateSubTotal();
             
