@@ -89,7 +89,7 @@
                         </td>
 
                         <td>
-                            <input type="number" id="totalwithgstanddiscount" name="Total with GST and Discount" readonly="readonly" />
+                            <input type="number" id="totalwithgstanddiscount" class="total" name="Total with GST and Discount" readonly="readonly" />
                         </td>
 
                         <td>
@@ -196,13 +196,13 @@
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
               $(row).removeClass('d-none');
-              GetTotal();
+              calculateSubTotal();
           });
 
           // Row Delete
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
-              GetTotal();
+              calculateSubTotal();
           }); 
 
           //$('#addnewrow').click(function () {
@@ -241,27 +241,36 @@
             var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
             $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
 
-            GetTotal();
+            calculateSubTotal();
             
         }; 
-        function GetTotal() {
+        function calculateSubTotal(v) {
             //var sum = 0.0;
             //$('#totalwithgstanddiscount').each(function () {
             //    if ($(this).val() != '')
             //        sum += parseFloat($(this).val());
             //});
-
+            debugger
+            
+            //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
+            //console.log(total);
+            //$(".total").each(function () {
+            //    sum += parseFloat($(this).val());
+            //    console.log(sum);
+            //});
             var sum = 0;
-            $().parent().parent().find("#totalwithgstanddiscount").each(function () {
-                sum += parseFloat($(this).val());
+            $('#' + v + ' input[id^=totalwithgstanddiscount]').each(function () {
+                //add only if the value is number
+                if (!isNaN($(this).val()) && $(this).val().length != 0) {
+                    sum  += parseFloat($(this).val());
+                }
             });
-            $("#txtTotal").val(sum);
+
+
+            //$("#txtTotal").val(sum);
             //console.log(sum.toFixed(2));
 
-            //$("#totalwithgstanddiscount").each(function () {
-            //    if (this.value != "")
-            //        $("#txtTotal").text(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
-            //});
+            
         }
 
     </script>
