@@ -196,13 +196,13 @@
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
               $(row).removeClass('d-none');
-              calculateSubTotal();
+              //calculateSubTotal();
           });
 
           // Row Delete
           $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
-              calculateSubTotal();
+              //calculateSubTotal();
           }); 
 
           //$('#addnewrow').click(function () {
@@ -241,37 +241,42 @@
             var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
             $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
 
-            calculateSubTotal();
+
+            $(v).parent().parent().find("#totalwithgstanddiscount").each(function () {
+                if (this.value != "")
+                    $("#txtTotal").val(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
+            });
+            //calculateSubTotal();
             
         }; 
-        function calculateSubTotal(v) {
-            //var sum = 0.0;
-            //$('#totalwithgstanddiscount').each(function () {
-            //    if ($(this).val() != '')
-            //        sum += parseFloat($(this).val());
-            //});
-            debugger
+        //function calculateSubTotal(v) {
+        //    //var sum = 0.0;
+        //    //$('#totalwithgstanddiscount').each(function () {
+        //    //    if ($(this).val() != '')
+        //    //        sum += parseFloat($(this).val());
+        //    //});
+        //    debugger
             
-            //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
-            //console.log(total);
-            //$(".total").each(function () {
-            //    sum += parseFloat($(this).val());
-            //    console.log(sum);
-            //});
-            var sum = 0;
-            $('#' + v + ' input[id^=totalwithgstanddiscount]').each(function () {
-                //add only if the value is number
-                if (!isNaN($(this).val()) && $(this).val().length != 0) {
-                    sum  += parseFloat($(this).val());
-                }
-            });
+        //    //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
+        //    //console.log(total);
+        //    //$(".total").each(function () {
+        //    //    sum += parseFloat($(this).val());
+        //    //    console.log(sum);
+        //    //});
+        //    var sum = 0;
+        //    $('#' + v + ' input[id^=totalwithgstanddiscount]').each(function () {
+        //        //add only if the value is number
+        //        if (!isNaN($(this).val()) && $(this).val().length != 0) {
+        //            sum  += parseFloat($(this).val());
+        //        }
+        //    });
 
 
-            //$("#txtTotal").val(sum);
-            //console.log(sum.toFixed(2));
+        //    //$("#txtTotal").val(sum);
+        //    //console.log(sum.toFixed(2));
 
             
-        }
+        //}
 
     </script>
 </html>
