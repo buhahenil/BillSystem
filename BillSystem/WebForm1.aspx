@@ -186,24 +186,33 @@
           });
 
           //add button click than row AND delete
-          //$('thead').on('click', '#addnewrow', function () {
-          //    var tr = "<tr>" + "<td><input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td>" + "<td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td> " + " <td><select id='gdt'> " + " <option value='5 % '>5%</option> " + " <option value='12 % '>12%</option>" + "<option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='number' id='price' name='price' /></td>" + "<td><input type='number' id='pricewithgst' name='price'/></td>" + "<td><input type='number' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td>" + "<td> <input type='number' id='qty' name='qty' /></td> " + "<td><input type='number' id='discount' name='Discount' /></td>" + "<td><input type='number' id='totalgst' name='Total GST' /></td>" + "<td><input type='number' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td>" + "<td><input type='button' id='rowdelete' name='Delete' value='Delete' /></td>" + "</tr>"
-          //    $('#tblPage').append(tr);
-          //});
+          var rowCount = 0;
+          $('#addnewrow').on('click', function () {
+              rowCount++;
+              $('#tblPage').append("<tr id='Newrow" + rowCount + "'><td> <input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td> <td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td>  <td><select id='gdt'>  <option value='5 % '>5%</option>  <option value='12 % '>12%</option> <option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='number' id='price' name='price' /></td>" + "<td><input type='number' id='pricewithgst' name='price'/></td> <td><input type='number' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td> <td> <input type='number' id='qty' name='qty' /></td>  <td><input type='number' id='discount' name='Discount' /></td> <td><input type='number' id='totalgst' name='Total GST' /></td> <td><input type='number' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td><td><input type='button' name='remove' id='" + rowCount +"' class='btn_remove' value='Delete'/></td></tr>")
+              console.log(rowCount);
+          });
 
           //Add New Row
-          $('#addnewrow').click(function () {
+          /*$('#addnewrow').click(function () {
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
               $(row).removeClass('d-none');
               //calculateSubTotal();
-          });
+          }); */
 
           // Row Delete
-          $('tbody').on('click', '#rowdelete', function () {
+
+          /*$('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
               //calculateSubTotal();
-          }); 
+          }); */
+
+          $('#tblPage').on('click', '.btn_remove', function () {
+              var button_id = $(this).attr('id');
+              console.log(button_id);
+              $('#Newrow' + button_id + '').remove();
+          });
 
           //$('#addnewrow').click(function () {
           //    var row_index = $(this).parent('table').index();
