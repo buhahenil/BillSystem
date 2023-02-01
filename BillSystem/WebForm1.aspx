@@ -17,7 +17,7 @@
                         <span id="lblFirstName">Customer Name</span>
                     </td>
                     <td>
-                        <input type="text" id="cusFirstName" name="searchbox" required=""/>
+                        <input type="text" id="cusFirstName" name="searchbox" required="" placeholder="Search Customer"/>
                     </td>
                 </tr>
             </table>
@@ -48,11 +48,11 @@
                 <tbody id="tblPage">
                     <tr id="Trow" class="d-none">
                         <td>
-                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()" />
+                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()" onchange="ItemCode()"/>
                         </td>
 
                         <td>
-                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()" />
+                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()" onchange="ItemName()"/>
                         </td>
 
                         <td>
@@ -163,56 +163,60 @@
     <script src="Scripts/jquery-3.6.3.js"></script>
     <script src="Scripts/jquery-ui-1.13.2.js"></script>
     <script src="Scripts/jquery-ui-1.13.2.min.js"></script>
+
     <script type="text/javascript">
   
       $(document).ready(function (){
           $("#cusFirstName").autocomplete({
               minLength: 3,
-              source: function (request, response) {
+              source: function (request, responce)
+              {
                   $.ajax({
-                      type: "POST",
-                      contentType: "application/json; charset=utf-8",
-                      url: "Customer.asmx/GetCustomer",
-                      data: "{'CustomerFirstName':'" + request.CustomerFirstName + "'}",
-                      dataType: "json",
+                      url: '/Customer.asmx/GetCustomer',
+                      method: 'POST',
+                      contentType: 'application/json; charset=utf-8',
+                      data: JSON.stringify({CustomerFirstName: request.term}),
+                      dataType: 'json',
                       success: function (data) {
-                          response(data.d);
+                          //debugger;
+                          responce(data.d);
                       },
-                      error: function (result) {
-                          alert("Error");
+                      error: function (err) {
+                          debugger;
+                          alert(err);
                       }
                   });
-              },
+              }
           });
 
           //add button click than row AND delete
-          var rowCount = 0;
+          /*var rowCount = 0;
           $('#addnewrow').on('click', function () {
               rowCount++;
               $('#tblPage').append("<tr id='Newrow" + rowCount + "'><td> <input type='text' placeholder='Search' id='itemcode' onkeyup='filterFunction()' /></td> <td><input type='text' placeholder='Search' id='itemname' onkeyup='filterFunction()'/></td>  <td><select id='gdt'>  <option value='5 % '>5%</option>  <option value='12 % '>12%</option> <option value='18 %'>18%</option>" + "<option value='28 % '>28%</option>" + "</select>" + "</td>" + "<td><input type='number' id='price' name='price' /></td>" + "<td><input type='number' id='pricewithgst' name='price'/></td> <td><input type='number' id='priwithgst' placeholder='GST(Price with GST - Price) ' /></td> <td> <input type='number' id='qty' name='qty' /></td>  <td><input type='number' id='discount' name='Discount' /></td> <td><input type='number' id='totalgst' name='Total GST' /></td> <td><input type='number' id='totalwithgstanddiscount' name='Total with GST and Discount' /></td><td><input type='button' name='remove' id='" + rowCount +"' class='btn_remove' value='Delete'/></td></tr>")
               console.log(rowCount);
-          });
+          }); */
 
           //Add New Row
-          /*$('#addnewrow').click(function () {
+          $('#addnewrow').click(function () {
               var row = $("#Trow").clone().appendTo("#tblPage");
               $(row).find("input").val('');
               $(row).removeClass('d-none');
               //calculateSubTotal();
-          }); */
+          }); 
 
           // Row Delete
 
-          /*$('tbody').on('click', '#rowdelete', function () {
+          $('tbody').on('click', '#rowdelete', function () {
               $(this).parent().parent().remove();
               //calculateSubTotal();
-          }); */
+          }); 
 
-          $('#tblPage').on('click', '.btn_remove', function () {
+          /*$('#tblPage').on('click', '.btn_remove', function () {
               var button_id = $(this).attr('id');
               console.log(button_id);
               $('#Newrow' + button_id + '').remove();
-          });
+          });*/
 
           //$('#addnewrow').click(function () {
           //    var row_index = $(this).parent('table').index();
@@ -255,40 +259,66 @@
                 if (this.value != "")
                 $("#txtTotal").val(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
             });
-            //calculateSubTotal();
+            calculateSubTotal();
             
         }; 
-        //function calculateSubTotal(v) {
-        //    //var sum = 0.0;
-        //    //$('#totalwithgstanddiscount').each(function () {
-        //    //    if ($(this).val() != '')
-        //    //        sum += parseFloat($(this).val());
-        //    //});
-        //    debugger
+        function calculateSubTotal(v) {
+            var sum = 0.0;
+            $('#totalwithgstanddiscount').each(function () {
+                if ($(this).val() != '')
+                    sum += parseFloat($(this).val());
+            });
+            console.log(sum);
             
-        //    //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
-        //    //console.log(total);
-        //    //$(".total").each(function () {
-        //    //    sum += parseFloat($(this).val());
-        //    //    console.log(sum);
-        //    //});
-        //    var sum = 0;
-        //    $('#' + v + ' input[id^=totalwithgstanddiscount]').each(function () {
-        //        //add only if the value is number
-        //        if (!isNaN($(this).val()) && $(this).val().length != 0) {
-        //            sum  += parseFloat($(this).val());
-        //        }
+            
+            //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
+            //console.log(total);
+            //$(".total").each(function () {
+            //    sum += parseFloat($(this).val());
+            //    console.log(sum);
+            //});
+
+            //$("#txtTotal").val(sum);
+            //console.log(sum.toFixed(2));
+        }
+        //function ItemName() {
+        //    $("#itemname").autocomplete({
+        //        source: function (request, responce) {
+        //            $.ajax({
+        //                url: "Customer.asmx/Itemname",
+        //                type: "POST",
+        //                contentType: "application/json; charset=utf-8",
+        //                data: JSON.stringify({ ItemCode: request.ItemCode }),
+        //                dataType: "json",
+        //                success: function (data) {
+        //                    responce(data.d);
+        //                },
+        //                error: function (err) {
+        //                    alert(err);
+        //                }
+        //            });
+        //        },
         //    });
-
-
-        //    //$("#txtTotal").val(sum);
-        //    //console.log(sum.toFixed(2));
-
-            
         //}
-
+        //function ItemName() {
+        //    $("#itemname").autocomplete({
+        //        source: function (request, responce) {
+        //            $.ajax({
+        //                url: "Customer.asmx/Itemname",
+        //                type: "POST",
+        //                contentType: "application/json; charset=utf-8",
+        //                data: JSON.stringify({ ItemCode: request.ItemCode }),
+        //                dataType: "json",
+        //                success: function (data) {
+        //                    responce(data.d);
+        //                },
+        //                error: function (err) {
+        //                    alert(err);
+        //                }
+        //            });
+        //        },
+        //    });
+        //}
     </script>
 </html>
 
-<%-- https://stackoverflow.com/questions/36787479/calculations-in-a-dynamically-added-rows-using-jquery --%>
-<%-- https://stackoverflow.com/questions/54844804/calculate-the-sum-of-the-column-from-dynamically-created-rows-in-jquery --%>

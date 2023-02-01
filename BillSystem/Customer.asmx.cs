@@ -19,45 +19,70 @@ namespace BillSystem
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
-   
+    [System.Web.Script.Services.ScriptService]
+
     public class Customer : System.Web.Services.WebService
     {
         public string connectionString = ConfigurationManager.ConnectionStrings["BillSystem"].ConnectionString;
 
-        
+
 
         [WebMethod]
         [ScriptMethod]
-        public string GetCustomer(string CustomerFirstName)
+        public List<string> GetCustomer(string CustomerFirstName)
         {
+            List<string> listcustomer = new List<string>();
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("spSelectAllCustomers", con);
-            con.Open();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@CustomerFirstName", CustomerFirstName);
+            con.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            //DataTable dt = new DataTable();
+            //DataSet ds = new DataSet();
+            //sda.Fill(dt);
+            while (rdr.Read()) 
+            {
+                listcustomer.Add(rdr["CustomerFirstName"].ToString());
+            }
+            con.Close();
+            return listcustomer;
+
+            //return JsonConvert.SerializeObject(dt);
+        }
+
+        [WebMethod]
+        [ScriptMethod]
+        public string Itemcode(string ItemCode)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("spSelectItemCode", con);
+            con.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ItemCode", ItemCode);
             DataTable dt = new DataTable();
             DataSet ds = new DataSet();
             sda.Fill(dt);
             con.Close();
             return JsonConvert.SerializeObject(dt);
         }
-
-        //public static List<string> GetCustomer(string CustomerFirstName)
-        //{
-        //    List<string> customer = new List<string>();
-        //    SqlConnection con = new SqlConnection(connectionString);
-        //    SqlCommand cmd = new SqlCommand("spSelectAllCustomers", con);
-        //    cmd.CommandType = CommandType.StoredProcedure;
-        //    cmd.Parameters.AddWithValue("@CustomerFirstName", CustomerFirstName);
-        //    con.Open();
-        //    SqlDataReader sdr = cmd.ExecuteReader();
-        //    sdr.Read();
-        //    customer.Add(sdr["CustomerFirstName"].ToString());
-        //    con.Close();
-        //    return customer;
-        //}
-
+        [WebMethod]
+        [ScriptMethod]
+        public string Itemname(string ItemName)
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("spSelectItemName", con);
+            con.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ItemName", ItemName);
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            sda.Fill(dt);
+            con.Close();
+            return JsonConvert.SerializeObject(dt);
+        }
     }
 }
