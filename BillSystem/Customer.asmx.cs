@@ -54,35 +54,42 @@ namespace BillSystem
 
         [WebMethod]
         [ScriptMethod]
-        public string Itemcode(string ItemCode)
+        public List<string> Itemcode(string ItemCode)
         {
+            List<string> listitemcode = new List<string>();
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("spSelectItemCode", con);
-            con.Open();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ItemCode", ItemCode);
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            sda.Fill(dt);
+            con.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                listitemcode.Add(rdr["ItemCode"].ToString());
+            }
             con.Close();
-            return JsonConvert.SerializeObject(dt);
+            return listitemcode;
         }
+
         [WebMethod]
         [ScriptMethod]
-        public string Itemname(string ItemName)
+        public List<string> Itemname(string ItemName)
         {
+            List<string> listitemname = new List<string>();
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("spSelectItemName", con);
-            con.Open();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ItemName", ItemName);
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            sda.Fill(dt);
+            con.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                listitemname.Add(rdr["ItemName"].ToString());
+            }
             con.Close();
-            return JsonConvert.SerializeObject(dt);
+            return listitemname;
         }
     }
 }

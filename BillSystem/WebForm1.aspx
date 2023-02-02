@@ -5,158 +5,165 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-        <div id="Customer" align="center">
-            <h3>-: Customer :-</h3>
-            <table id="tblForm1" border="1">
-                <tr>
-                    <td>
-                        <span id="lblFirstName">Customer Name</span>
-                    </td>
-                    <td>
-                        <input type="text" id="cusFirstName" name="searchbox" required="" placeholder="Search Customer"/>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br />
-
-        <div id="Item" align="center">
-            <h3>-: Item :-</h3>
-            <table width="50%" id="tblForm2" border="2">
-                <thead>
+            <div id="Customer" align="center">
+                <h3>-: Customer :-</h3>
+                <table id="tblForm1" border="1">
                     <tr>
-                        <th>Item Code</th>
-                        <th>Item Name</th>
-                        <th>GST</th>
-                        <th>Price</th>
-                        <th>Price with GST</th>
-                        <th>GST</th>
-                        <th>Qty</th>
-                        <th>Discount</th>
-                        <th>Total GST</th>
-                        <th>Total with GST and Discount</th>
-                        <th>Delete</th>
-                        <th><input type="button" id="addnewrow" value="Add New Row"/>  
-
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="tblPage">
-                    <tr id="Trow" class="d-none">
                         <td>
-                            <input type="text" placeholder="Search" id="itemcode" onkeyup="filterFunction()" onchange="ItemCode()"/>
+                            <span id="lblFirstName">Customer Name</span>
                         </td>
-
                         <td>
-                            <input type="text" placeholder="Search" id="itemname" onkeyup="filterFunction()" onchange="ItemName()"/>
-                        </td>
-
-                        <td>
-                            <select id="gst" onchange="calc(this)" >
-                                <option value="5">5%</option>
-                                <option value="12">12%</option>
-                                <option value="18">18%</option>
-                                <option value="28">28%</option>
-                            </select>
-                        </td>
-
-                        <td>
-                            <input type="number" id="price" name="Price" onchange="calc(this)" />
-                        </td>
-
-                        <td>
-                            <input type="number" id="pricewithgst" name="Price with GST" readonly="readonly" />
-                        </td>
-
-                        <td>
-                            <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly" />
-                        </td>
-
-                        <td>
-                            <input type="number" id="qty" onchange="calc(this)" />
-                        </td>
-
-                        <td>
-                            <input type="number" id="discount" name="Discount" onchange="calc(this)" />
-                        </td>
-
-                        <td>
-                            <input type="number" id="totalgst" name="Total GST" readonly="readonly"/>
-                        </td>
-
-                        <td>
-                            <input type="number" id="totalwithgstanddiscount" class="total" name="Total with GST and Discount" readonly="readonly" />
-                        </td>
-
-                        <td>
-                            <button type="button" id="rowdelete" name="Delete" >Delete</button>
+                            <input type="text" id="cusFirstName" name="searchbox" required="" placeholder="Search Customer" />
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <br /><br />
-
-        <div id="total">
-            <table id="From3" border="2" align="right">
-                <tr>
-                    <td>
-                        <span id="lblTotol">Total</span>
-                    </td>
-                    <td>
-                        <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" readonly="readonly"/>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>
-                        <span id="lblAdjustment">Adjustment Discount Type</span>
-                    </td>
-                    <td>
-                        <input type="text" id="txtAdjustmentType" name="AdjustmentDiscountType" placeholder="Adjustment Discount Type"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span id="lblAdjustmentDiscount">Adjustment Discount</span>
-                    </td>
-                    <td>
-                        <input type="text" id="txtAdjDiscount" name="AdjustmentDiscount" placeholder="Adjustment Discount"/>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>
-                        <span id="lblGSTAmount">GST Amount</span>
-                    </td>
-                    <td>
-                        <input type="text" id="txtGSTAmount" name="GSTAmount" placeholder="GST Amount"/>
-                    </td>
-                </tr>       
-                
-                <tr>
-                    <td>
-                        <span id="lblBillableAmount">Billable Amount</span>
-                    </td>
-                    <td>
-                        <input type="text" id="txtBillableAmount" name="BillableAmount" placeholder="Billable Amount"/>
-                    </td>
-                </tr> 
-            </table>
-        </div>
-        <br /><br />
-            <div id="paymentandsubmit"> 
-                <label for="payment">Customer Payment Method :- </label>
-                <input id="cblPayment_1" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cash" />Cash
-                <input id="cblPayment_2" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Net Banking" />Net Banking
-                <input id="cblPayment_3" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cheak" />Cheak
-                <input id="cblPayment_4" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="UPI" />UPI
+                </table>
             </div>
-            <input type="submit" id="btnSubmit" value="Submit" />
+            <br />
+
+            <div id="Item" align="center">
+                <h3>-: Item :-</h3>
+                <table width="50%" id="tblForm2" border="2">
+                    <thead>
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>GST</th>
+                            <th>Price</th>
+                            <th>Price with GST</th>
+                            <th>GST</th>
+                            <th>Qty</th>
+                            <th>Discount</th>
+                            <th>Total GST</th>
+                            <th>Total with GST and Discount</th>
+                            <th>Delete</th>
+                            <th>
+                                <input type="button" id="addnewrow" value="Add New Row" />
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblPage">
+                        <tr id="Trow" class="d-none">
+                            <td>
+                                <input type="text" placeholder="Search" id="itemcode" onkeyup="ItemCode()" />
+                            </td>
+
+                            <td>
+                                <input type="text" placeholder="Search" id="itemname" onkeyup="Itemname()" />
+                            </td>
+
+                            <td>
+                                <select id="gst" onchange="calc(this)">
+                                    <option value="5">5%</option>
+                                    <option value="12">12%</option>
+                                    <option value="18">18%</option>
+                                    <option value="28">28%</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <input type="number" id="price" name="Price" onchange="calc(this)" />
+                            </td>
+
+                            <td>
+                                <input type="number" id="pricewithgst" name="Price with GST" readonly="readonly" />
+                            </td>
+
+                            <td>
+                                <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly" />
+                            </td>
+
+                            <td>
+                                <input type="number" id="qty" onchange="calc(this)" />
+                            </td>
+
+                            <td>
+                                <input type="number" id="discount" name="Discount" onchange="calc(this)" />
+                            </td>
+
+                            <td>
+                                <input type="number" id="totalgst" name="Total GST" readonly="readonly" />
+                            </td>
+
+                            <td>
+                                <input type="number" id="totalwithgstanddiscount" class="total" name="Total with GST and Discount" readonly="readonly" />
+                            </td>
+
+                            <td>
+                                <button type="button" id="rowdelete" name="Delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                    <tfoot id="Tfoot">
+                        <tr>
+                            <td>
+                                <span id="lblTotol">Total</span>
+                            </td>
+                            <td>
+                                <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" readonly="readonly" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span id="lblAdjustment">Adjustment Discount Type</span>
+                            </td>
+                            <td>
+                                <input type="text" id="txtAdjustmentType" name="AdjustmentDiscountType" placeholder="Adjustment Discount Type" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="lblAdjustmentDiscount">Adjustment Discount</span>
+                            </td>
+                            <td>
+                                <input type="text" id="txtAdjDiscount" name="AdjustmentDiscount" placeholder="Adjustment Discount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span id="lblGSTAmount">GST Amount</span>
+                            </td>
+                            <td>
+                                <input type="text" id="txtGSTAmount" name="GSTAmount" placeholder="GST Amount" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span id="lblBillableAmount">Billable Amount</span>
+                            </td>
+                            <td>
+                                <input type="text" id="txtBillableAmount" name="BillableAmount" placeholder="Billable Amount" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="payment">Customer Payment Method  </label>
+                            </td>
+                            <td colspan="12" style="text-align: center; align-items: center; align-content: center; align-self: center;">
+                                <input id="cblPayment_1" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cash" />Cash
+                            <input id="cblPayment_2" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Net Banking" />Net Banking
+                            <input id="cblPayment_3" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="Cheak" />Cheak
+                            <input id="cblPayment_4" type="checkbox" class="ads_Checkbox" name="cblPayment$0" value="UPI" />UPI
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" style="text-align: center; align-items: center; align-content: center; align-self: center;">
+                                <input type="submit" id="btnSubmit" value="Submit" />
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </form>
 </body>
@@ -179,7 +186,7 @@
                       data: JSON.stringify({CustomerFirstName: request.term}),
                       dataType: 'json',
                       success: function (data) {
-                          //debugger;
+                          debugger;
                           responce(data.d);
                       },
                       error: function (err) {
@@ -261,17 +268,15 @@
                 $("#txtTotal").val(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
             });
             calculateSubTotal();
-            
+            ItemCode();
         }; 
-        function calculateSubTotal(v) {
+        function calculateSubTotal() {
             var sum = 0.0;
             $('#totalwithgstanddiscount').each(function () {
                 if ($(this).val() != '')
                     sum += parseFloat($(this).val());
             });
             console.log(sum);
-            
-            
             //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
             //console.log(total);
             //$(".total").each(function () {
@@ -282,44 +287,47 @@
             //$("#txtTotal").val(sum);
             //console.log(sum.toFixed(2));
         }
-        //function ItemName() {
-        //    $("#itemname").autocomplete({
-        //        source: function (request, responce) {
-        //            $.ajax({
-        //                url: "Customer.asmx/Itemname",
-        //                type: "POST",
-        //                contentType: "application/json; charset=utf-8",
-        //                data: JSON.stringify({ ItemCode: request.ItemCode }),
-        //                dataType: "json",
-        //                success: function (data) {
-        //                    responce(data.d);
-        //                },
-        //                error: function (err) {
-        //                    alert(err);
-        //                }
-        //            });
-        //        },
-        //    });
-        //}
-        //function ItemName() {
-        //    $("#itemname").autocomplete({
-        //        source: function (request, responce) {
-        //            $.ajax({
-        //                url: "Customer.asmx/Itemname",
-        //                type: "POST",
-        //                contentType: "application/json; charset=utf-8",
-        //                data: JSON.stringify({ ItemCode: request.ItemCode }),
-        //                dataType: "json",
-        //                success: function (data) {
-        //                    responce(data.d);
-        //                },
-        //                error: function (err) {
-        //                    alert(err);
-        //                }
-        //            });
-        //        },
-        //    });
-        //}
+        function ItemCode() {
+            $("#itemname").autocomplete({
+                source: function (request, responce) {
+                    debugger;
+                    $.ajax({
+                        url: '/Customer.asmx/Itemcode',
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ ItemCode: request.term }),
+                        dataType: 'json',
+                        success: function (data) {
+                            responce(data.d);
+                            debugger;
+                        },
+                        error: function (err) {
+                            debugger;
+                            alert(err);
+                        }
+                    });
+                },
+            });
+        }
+        function Itemname() {
+            $("#itemname").autocomplete({
+                source: function (request, responce) {
+                    $.ajax({
+                        url: "/customer.asmx/itemname",
+                        type: "post",
+                        contenttype: "application/json; charset=utf-8",
+                        data: json.stringify({ itemname: request.term }),
+                        datatype: "json",
+                        success: function (data) {
+                            responce(data.d);
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    });
+                },
+            });
+        }
     </script>
 </html>
 
