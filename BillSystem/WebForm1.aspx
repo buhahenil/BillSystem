@@ -231,6 +231,7 @@
           //    alert(row_index);
           //});  this code is find row index
           ItemCode();
+          ItemName();
       });
         
         function calc(v) {
@@ -270,6 +271,7 @@
             });
             calculateSubTotal();
             ItemCode();
+            ItemName();
         }; 
         function calculateSubTotal() {
             var sum = 0.0;
@@ -316,14 +318,14 @@
                 source: function (request, responce) {
                     debugger;
                     $.ajax({
-                        url: '/customer.asmx/itemname',
-                        type: 'post',
-                        contenttype: 'application/json; charset=utf-8',
-                        data: JSON.stringify({ itemname: request.term }),
-                        datatype: 'json',
+                        url: '/Customer.asmx/Itemname',
+                        method: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ ItemName: request.term }),
+                        dataType: 'json',
                         success: function (data) {
-                            debugger;
                             responce(data.d);
+                            debugger;
                         },
                         error: function (err) {
                             debugger;
