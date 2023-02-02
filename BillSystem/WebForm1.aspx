@@ -43,18 +43,17 @@
                             <th>Delete</th>
                             <th>
                                 <input type="button" id="addnewrow" value="Add New Row" />
-
                             </th>
                         </tr>
                     </thead>
                     <tbody id="tblPage">
                         <tr id="Trow" class="d-none">
                             <td>
-                                <input type="text" placeholder="Search" id="itemcode" onkeyup="ItemCode()" />
+                                <input type="text" placeholder="Search" class="itemcode" onkeyup="ItemCode()" />
                             </td>
 
                             <td>
-                                <input type="text" placeholder="Search" id="itemname" onkeyup="Itemname()" />
+                                <input type="text" placeholder="Search" class="itemname" onkeyup="ItemName()" />
                             </td>
 
                             <td>
@@ -161,6 +160,7 @@
                                 <input type="submit" id="btnSubmit" value="Submit" />
                             </td>
                         </tr>
+                            
                     </tfoot>
                 </table>
             </div>
@@ -230,6 +230,7 @@
           //    var row_index = $(this).parent('table').index();
           //    alert(row_index);
           //});  this code is find row index
+          ItemCode();
       });
         
         function calc(v) {
@@ -287,13 +288,14 @@
             //$("#txtTotal").val(sum);
             //console.log(sum.toFixed(2));
         }
+        
         function ItemCode() {
-            $("#itemname").autocomplete({
+            $(".itemcode").autocomplete({
                 source: function (request, responce) {
                     debugger;
                     $.ajax({
                         url: '/Customer.asmx/Itemcode',
-                        type: 'POST',
+                        method: 'POST',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify({ ItemCode: request.term }),
                         dataType: 'json',
@@ -309,19 +311,22 @@
                 },
             });
         }
-        function Itemname() {
-            $("#itemname").autocomplete({
+        function ItemName() {
+            $(".itemname").autocomplete({
                 source: function (request, responce) {
+                    debugger;
                     $.ajax({
-                        url: "/customer.asmx/itemname",
-                        type: "post",
-                        contenttype: "application/json; charset=utf-8",
-                        data: json.stringify({ itemname: request.term }),
-                        datatype: "json",
+                        url: '/customer.asmx/itemname',
+                        type: 'post',
+                        contenttype: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ itemname: request.term }),
+                        datatype: 'json',
                         success: function (data) {
+                            debugger;
                             responce(data.d);
                         },
                         error: function (err) {
+                            debugger;
                             alert(err);
                         }
                     });
