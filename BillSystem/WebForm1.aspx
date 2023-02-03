@@ -335,6 +335,7 @@
                     });
                 },
             });
+            
         }
         function ItemName() {
             $(".itemname").autocomplete({
@@ -360,4 +361,4 @@
         }
     </script>
 </html>
-
+<%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
