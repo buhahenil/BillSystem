@@ -57,7 +57,7 @@
                             </td>
 
                             <td>
-                                <select id="gst" onchange="calc(this)">
+                                <select id="gst" onchange="calc(this)" name="GST1">
                                     <option value="5">5%</option>
                                     <option value="12">12%</option>
                                     <option value="18">18%</option>
@@ -78,7 +78,7 @@
                             </td>
 
                             <td>
-                                <input type="number" id="qty" onchange="calc(this)" />
+                                <input type="number" id="qty" onchange="calc(this)" name="QTY"/>
                             </td>
 
                             <td>
@@ -105,7 +105,7 @@
                                 <span id="lblTotol">Total</span>
                             </td>
                             <td>
-                                <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" readonly="readonly" />
+                                <input type="text" id="txtTotal" name="Total" placeholder="Total Amount" readonly="readonly" onchange="calc(this)"/>
                             </td>
                         </tr>
 
@@ -160,7 +160,7 @@
                                 <input type="submit" id="btnSubmit" value="Submit" />
                             </td>
                         </tr>
-                            
+                           
                     </tfoot>
                 </table>
             </div>
@@ -230,66 +230,89 @@
           //    var row_index = $(this).parent('table').index();
           //    alert(row_index);
           //});  this code is find row index
-          ItemCode();
-          ItemName();
+          
+          
       });
         
         function calc(v) {
           //var indexRow = $(v).parent().parent().index();
           //alert(indexRow);
 
-            var GST = parseFloat($(v).parent().parent().find("#gst").val());
+            var $row = $(v).closest('tr');
+
+            var GST = parseFloat($row.find('[name="GST1"]').val());
+            var Price = parseFloat($row.find('[name="Price"]').val());
+            var Qty = parseFloat($row.find('[name="QTY"]').val());
+            var Discount = parseFloat($row.find('[name="Discount"]').val());
+
+            if (!isNaN(GST) && !isNaN(Price) && !isNaN(Qty) && !isNaN(Discount)) {
+                var Price_with_GST = Price + (Price * GST) / 100;
+                $row.find('[name="Price with GST"]').val(Price_with_GST.toFixed(2));
+
+                var GST2 = Price_with_GST - Price;
+                $row.find('[name="GST(PricewithGST-Price)"]').val(GST2.toFixed(2));
+
+                var TotalGST = GST2 * Qty;
+                $row.find('[name="Total GST"]').val(TotalGST.toFixed(2));
+
+                var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount / 100));
+                $row.find('[name="Total with GST and Discount"]').val(Total_with_GST_and_Discount.toFixed(2));
+
+            }// else {
+            //    alert("Invalid Price or GST value. Please enter a valid number.");
+            //} 
+
+
+            /*var GST = parseFloat($(v).parent().parent().find("#gst").val());
             //console.log(gst);
 
             var Price = parseFloat($(v).parent().parent().find("#price").val());
             //console.log(Price);
 
             var Price_with_GST = Price + ((Price * GST) / 100);
-            $(v).parent().parent().find("#pricewithgst").val(Price_with_GST.toFixed(2));
+            $(v).parent().parent().find("#pricewithgst").val(Price_with_GST.toFixed(2)); 
             //console.log(Price_with_GST);
 
             var GST2 = Price_with_GST - Price;
             $(v).parent().parent().find("#priwithgst").val(parseFloat(GST2).toFixed(2));
-            //console.log(GST2);
+            //console.log(GST2);    
 
             var Qty = parseFloat($(v).parent().parent().find("#qty").val());
             //console.log(Qty);
 
             var Discount = parseFloat($(v).parent().parent().find("#discount").val());
-            //console.log(Discount);
+            console.log(Discount);
 
             var TotalGST = GST2 * Qty;
             $(v).parent().parent().find("#totalgst").val(parseFloat(TotalGST).toFixed(2));
 
             var Total_with_GST_and_Discount = Price_with_GST * Qty - (Price_with_GST * Qty * (Discount/100));
             $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
+            
+            */
 
-
-            $(v).parent().parent().find("#totalwithgstanddiscount").each(function () {
-                if (this.value != "")
-                $("#txtTotal").val(parseFloat($("#txtTotal").val()) + parseFloat($(this).val()));
+            var sum = 0.0000;
+            $('#totalwithgstanddiscount').each(function () {
+                var value = parseFloat($(this).val());
+                if (!isNaN(value))
+                    sum += value;
             });
-            calculateSubTotal();
-            ItemCode();
-            ItemName();
+            $("#txtTotal").val(sum);
+            //console.log(sum);
+            //calculateSubTotal();
+            
         }; 
-        function calculateSubTotal() {
+        /*function calculateSubTotal() {
             var sum = 0.0;
             $('#totalwithgstanddiscount').each(function () {
-                if ($(this).val() != '')
-                    sum += parseFloat($(this).val());
+                var value = parseFloat($(this).val());
+                if (!isNaN(value))
+                    sum += value;
             });
             console.log(sum);
-            //var total = $().parent().parent().find("#totalwithgstanddiscount").val();
-            //console.log(total);
-            //$(".total").each(function () {
-            //    sum += parseFloat($(this).val());
-            //    console.log(sum);
-            //});
-
-            //$("#txtTotal").val(sum);
+            
             //console.log(sum.toFixed(2));
-        }
+        } */
         
         function ItemCode() {
             $(".itemcode").autocomplete({
