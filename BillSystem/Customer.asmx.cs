@@ -62,11 +62,13 @@ namespace BillSystem
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ItemCode", ItemCode);
+            //cmd.Parameters.AddWithValue("@ItemName", ItemName);
             con.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
                 listitemcode.Add(rdr["ItemCode"].ToString());
+                //listitemcode.Add(rdr["ItemName"].ToString());
             }
             con.Close();
             return listitemcode;

@@ -6,7 +6,9 @@
 <head runat="server">
     <title></title>
     
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -336,7 +338,6 @@
                     });
                 },
             });
-            
         }
         function ItemName() {
             $(".itemname").autocomplete({
@@ -360,6 +361,11 @@
                 },
             });
         }
+        //function Fillfiled()
+        //{
+        //    $()
+        //}
+
     </script>
 </html>
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
