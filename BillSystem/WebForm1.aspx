@@ -316,7 +316,29 @@
             
             //console.log(sum.toFixed(2));
         } */
-        
+
+        var fielNo;
+        function getFieldNo(type) {
+            var fieldNo;
+            switch (type) {
+                case 'ItemCode':
+                    fieldNo = 0;
+                    break;
+                case 'ItemName':
+                    fieldNo = 1;
+                    break;
+                case 'GST':
+                    fieldNo = 2;
+                    break;
+                case 'Dicount':
+                    fieldNo = 3;
+                    break;
+                default:
+                    break;
+            }
+            return fieldNo;
+        }
+
         function ItemCode() {
             $(".itemcode").autocomplete({
                 source: function (request, responce) {
