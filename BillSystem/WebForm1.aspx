@@ -52,11 +52,11 @@
                     <tbody id="tblPage">
                         <tr id="Trow" class="d-none">
                             <td>
-                                <input type="text" placeholder="Search" class="itemcode" onkeyup="ItemCode()" />
+                                <input type="text" placeholder="Search" class="itemcode" onkeyup="ItemName1()" />
                             </td>
 
                             <td>
-                                <input type="text" placeholder="Search" class="itemname" onkeyup="ItemName()" />
+                                <input type="text" placeholder="Search" class="itemname" onkeyup="ItemName1()" />
                             </td>
 
                             <td>
@@ -318,7 +318,7 @@
         } */
 
         
-        function ItemCode() {
+        /*function ItemCode() {
             $('.itemcode').autocomplete({
                 source: function (request, responce) {
                     debugger;
@@ -330,7 +330,6 @@
                         dataType: 'json',
                         success: function (data) {
                             responce(data.d);
-                            
                             //debugger;
                         },
                         error: function (err) {
@@ -363,8 +362,34 @@
                     });
                 },
             });
+        } */
+
+       //-----------------------------------------------------
+        function ItemName1() {
+            $('input').on('autocomplete', '.itemcode', '.itemname',function ({
+                source: function (request, responce) {
+                    debugger;
+                    $.ajax({
+                        url: '/Customer.asmx/Itemcode1',
+                        method: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ ItemName: request.term }),
+                        dataType: 'json',
+                        success: function (data) {
+                            responce(data.d);
+
+                            //debugger;
+                        },
+                        error: function (err) {
+                            debugger;
+                            alert(err);
+                        }
+                    });
+                },
+            });
         }
-        
+
+       //----------------------------------------------------- 
     </script>
 </html>
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
