@@ -329,7 +329,8 @@
                         data: JSON.stringify({ ItemCode: request.term }),
                         dataType: 'json',
                         success: function (data) {
-                            responce (data.d);
+                            responce(data.d);
+                            console.log(data.d)
                             //debugger;
                         },
                         error: function (err) {
