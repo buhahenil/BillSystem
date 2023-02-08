@@ -326,11 +326,11 @@
                         url: '/Customer.asmx/Itemcode',
                         method: 'POST',
                         contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify({ ItemCode: request.term }),
+                        data: JSON.stringify({ ItemCode: request.term } ),
                         dataType: 'json',
                         success: function (data) {
                             responce(data.d);
-                            console.log(data.d)
+                            
                             //debugger;
                         },
                         error: function (err) {
@@ -342,19 +342,19 @@
             });
         }
         function ItemName() {
-            $(".itemname").autocomplete({
+            $('.itemname').autocomplete({
                 source: function (request, responce) {
-                    
                     debugger;
                     $.ajax({
-                        url: '/Customer.asmx/Itemcode',
+                        url: '/Customer.asmx/Itemname',
                         method: 'POST',
                         contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify({ ItemName: request.term}),
+                        data: JSON.stringify({ ItemName: request.term }),
                         dataType: 'json',
                         success: function (data) {
                             responce(data.d);
-                            debugger;
+
+                            //debugger;
                         },
                         error: function (err) {
                             debugger;
