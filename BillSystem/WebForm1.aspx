@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" method="post">
         <div>
             <div id="Customer" align="center">
                 <h3>-: Customer :-</h3>
@@ -317,30 +317,9 @@
             //console.log(sum.toFixed(2));
         } */
 
-        var fielNo;
-        function getFieldNo(type) {
-            var fieldNo;
-            switch (type) {
-                case 'ItemCode':
-                    fieldNo = 0;
-                    break;
-                case 'ItemName':
-                    fieldNo = 1;
-                    break;
-                case 'GST':
-                    fieldNo = 2;
-                    break;
-                case 'Dicount':
-                    fieldNo = 3;
-                    break;
-                default:
-                    break;
-            }
-            return fieldNo;
-        }
-
+        
         function ItemCode() {
-            $(".itemcode").autocomplete({
+            $('.itemcode').autocomplete({
                 source: function (request, responce) {
                     debugger;
                     $.ajax({
@@ -350,8 +329,8 @@
                         data: JSON.stringify({ ItemCode: request.term }),
                         dataType: 'json',
                         success: function (data) {
-                            responce(data.d);
-                            debugger;
+                            responce (data.d);
+                            //debugger;
                         },
                         error: function (err) {
                             debugger;
@@ -364,12 +343,13 @@
         function ItemName() {
             $(".itemname").autocomplete({
                 source: function (request, responce) {
+                    
                     debugger;
                     $.ajax({
-                        url: '/Customer.asmx/Itemname',
+                        url: '/Customer.asmx/Itemcode',
                         method: 'POST',
                         contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify({ ItemName: request.term }),
+                        data: JSON.stringify({ ItemName: request.term}),
                         dataType: 'json',
                         success: function (data) {
                             responce(data.d);
@@ -383,11 +363,7 @@
                 },
             });
         }
-        //function Fillfiled()
-        //{
-        //    $()
-        //}
-
+        
     </script>
 </html>
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>

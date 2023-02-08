@@ -12,4 +12,5 @@ namespace BillSystem.Classes
         public string CustomerLastName { get; set; }
 
     }
+    
 }
