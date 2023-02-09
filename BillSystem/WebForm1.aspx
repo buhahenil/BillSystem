@@ -373,26 +373,24 @@
                     //    console.log(data);
                     //    input.autocomplete({
                     //        source: data.d
-                            
                     //    });
                     //},
                     success: function (data) {
                         var items = data.d;
-                        console.log(data);
+                        console.log(data.d);
+
                         input.autocomplete({
                             source: function (request, response) {
-                                var filteredItems = items.length.filter(function (item) {
+                                var filteredItems = items.filter(function (item) {
                                     return (
                                         item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 ||
                                         item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1
                                     );
                                 });
                                 response(filteredItems);
-                                
                             },
                             select: function (event, ui) {
                                 var item = ui.item;
-                               
                                 $('.itemcode').val(item.ItemCode);
                                 $('.itemname').val(item.ItemName);
                                 $('.gst').val(item.GST);
@@ -412,4 +410,5 @@
        //----------------------------------------------------- 
     </script>
 </html>
+
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
