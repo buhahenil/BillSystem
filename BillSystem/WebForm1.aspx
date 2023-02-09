@@ -306,8 +306,6 @@
             $(v).parent().parent().find("#totalwithgstanddiscount").val(parseFloat(Total_with_GST_and_Discount).toFixed(4));
             
             */
-
-            
         };
         
         /*function ItemCode() {
