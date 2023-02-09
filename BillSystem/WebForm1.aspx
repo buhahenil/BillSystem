@@ -366,26 +366,28 @@
 
        //-----------------------------------------------------
         function ItemName1() {
-            $('input').on('autocomplete', '.itemcode', '.itemname',function ({
-                source: function (request, responce) {
-                    debugger;
-                    $.ajax({
-                        url: '/Customer.asmx/Itemcode1',
-                        method: 'POST',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify({ ItemName: request.term }),
-                        dataType: 'json',
-                        success: function (data) {
-                            responce(data.d);
-
-                            //debugger;
-                        },
-                        error: function (err) {
-                            debugger;
-                            alert(err);
-                        }
-                    });
-                },
+            $(document).on('input', '.itemcode, .itemname', function () {
+                var input = $(this);
+                var endpoint = '/Customer.asmx/Itemcode1';
+                var itemName = input.val();
+                var itemCode = input.val();
+                $.ajax({
+                    url: endpoint,
+                    method: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ ItemName: itemName, ItemCode: itemCode }),
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        input.autocomplete({
+                            source: data.d
+                        });
+                    },
+                    error: function (err) {
+                        console.error(err);
+                        alert("An error occurred while trying to retrieve the item names.");
+                    }
+                });
             });
         }
 
