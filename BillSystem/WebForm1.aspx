@@ -6,6 +6,7 @@
 <head runat="server">
     <title></title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    
 </head>
 <body>
     <form id="form1" runat="server" method="post">
@@ -27,7 +28,7 @@
 
             <div id="Item" align="center">
                 <h3>-: Item :-</h3>
-                <table width="50%" id="tblForm2" border="2">
+                <table width="50%" id="tblForm2" border="2" >
                     <thead>
                         <tr>
                             <th>Item Code</th>
@@ -99,7 +100,6 @@
                             </td>
                         </tr>
                     </tbody>
-                    
                     <tfoot id="Tfoot">
                         <tr>
                             <td>
@@ -123,7 +123,7 @@
                                 <span id="lblAdjustmentDiscount">Adjustment Discount</span>
                             </td>
                             <td>
-                                <input type="text" id="txtAdjDiscount" name="AdjustmentDiscount" placeholder="Adjustment Discount" />
+                                <input type="text" id="txtAdjDiscount" name="AdjustmentDiscount" placeholder="Adjustment Discount" onchange="calc(this)"/>
                             </td>
                         </tr>
 
@@ -141,7 +141,7 @@
                                 <span id="lblBillableAmount">Billable Amount</span>
                             </td>
                             <td>
-                                <input type="text" id="txtBillableAmount" name="BillableAmount" placeholder="Billable Amount" />
+                                <input type="text" id="txtBillableAmount" name="BillableAmount" placeholder="Billable Amount" onchange="calc(this)"/>
                             </td>
                         </tr>
                         <tr>
@@ -171,8 +171,6 @@
     <script src="Scripts/jquery-3.6.3.js"></script>
     <script src="Scripts/jquery-ui-1.13.2.js"></script>
     <script src="Scripts/jquery-ui-1.13.2.min.js"></script>
-    
-    
     <script type="text/javascript">
   
       $(document).ready(function (){
@@ -261,7 +259,7 @@
 
             }
             //tfoot sum
-
+            // total
             var sum = 0.0000;
             $('.total').each(function () {
                 var value = parseFloat($(this).val());
@@ -270,6 +268,7 @@
             });
             $("#txtTotal").val(sum.toFixed(2));
 
+            // GST Total
             var gstSum = 0.00
             $('.gstTotal').each(function () {
                 var value = parseFloat($(this).val());
@@ -277,6 +276,12 @@
                     gstSum += value;
             });
             $("#txtGSTAmount").val(gstSum.toFixed(2));
+
+            // Adjustment Discount
+            var Total = $('#txtTotal').val();
+            var AdjustmentDiscount = $('#txtAdjDiscount').val();
+            var Bill = (Total - AdjustmentDiscount);
+            $("#txtBillableAmount").val(Bill.toFixed(2));
 
 
             /*var GST = parseFloat($(v).parent().parent().find("#gst").val());
@@ -367,28 +372,43 @@
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({ ItemName: itemName, ItemCode: itemCode }),
                     dataType: 'json',
-                    //success: function (data) {
-                    //    console.log(data);
-                    //    input.autocomplete({
-                    //        source: data.d
-                    //    });
-                    //},
+                    /*success: function (data) {
+                        console.log(data);
+                        input.autocomplete({
+                            source: data.d
+                        });
+                    },*/
                     success: function (data) {
                         var items = data.d;
-                        console.log(data.d);
+                        //console.log(data.d);
+                        //items.forEach(function (item) {
+                        //    console.log(item.ItemCode);
+                        //    console.log(item.ItemName);
+                        //    console.log(item.GST);
+                        //    console.log(item.Price);
+                        //    console.log(item.Discount);
+                        //});
 
                         input.autocomplete({
                             source: function (request, response) {
                                 var filteredItems = items.filter(function (item) {
+                                    //console.log("item.ItemCode: ", item.ItemCode);
+                                    //console.log("item.ItemName: ", item.ItemName);
+                                    //console.log("item.GST: ", item.GST);
+                                    //console.log("item.Price: ", item.Price);
+                                    //console.log("item.Discount: ", item.Discount);
                                     return (
                                         item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 ||
                                         item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1
                                     );
                                 });
+                                /*console.log(filteredItems);*/
                                 response(filteredItems);
                             },
                             select: function (event, ui) {
-                                var item = ui.item;
+                                var item = ui.items;
+                                /*var item = event.item*/
+                                console.log(item);
                                 $('.itemcode').val(item.ItemCode);
                                 $('.itemname').val(item.ItemName);
                                 $('.gst').val(item.GST);
@@ -404,7 +424,6 @@
                 });
             });
         }
-
        //----------------------------------------------------- 
     </script>
 </html>
