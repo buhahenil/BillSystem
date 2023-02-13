@@ -58,12 +58,6 @@
                             </td>
 
                             <td>
-                                <%--<select id="gst" onchange="calc(this)" name="GST1" class="gst">
-                                    <option value="5">5%</option>
-                                    <option value="12">12%</option>
-                                    <option value="18">18%</option>
-                                    <option value="28">28%</option>
-                                </select>--%>
                                 <input type="number" id="gst" class="gst" name="GST1" onchange="calc(this)"/>
                             </td>
 
