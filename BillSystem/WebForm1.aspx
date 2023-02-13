@@ -492,4 +492,6 @@
 
            return false;
         }
-     }); --%>
+     }); 
+    https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/
+    --%>
