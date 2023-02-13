@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
-    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
 </head>
 <body>
     <form id="form1" runat="server" method="post">
@@ -176,13 +176,14 @@
       $(document).ready(function (){
           $("#cusFirstName").autocomplete({
               minLength: 3,
-              source: function (request, responce)
-              {
+              autoFocus: true,
+              delay:0,
+              source: function (request, responce) {
                   $.ajax({
                       url: '/Customer.asmx/GetCustomer',
                       method: 'POST',
                       contentType: 'application/json; charset=utf-8',
-                      data: JSON.stringify({CustomerFirstName: request.term}),
+                      data: JSON.stringify({ CustomerFirstName: request.term }),
                       dataType: 'json',
                       success: function (data) {
                           debugger;
@@ -194,8 +195,9 @@
                       }
                   });
               }
+              
           });
-
+          ItemName1();
           //add button click than row AND delete
           /*var rowCount = 0;
           $('#addnewrow').on('click', function () {
@@ -370,17 +372,11 @@
                     url: endpoint,
                     method: 'POST',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ ItemName: itemName, ItemCode: itemCode }),
+                    data: JSON.stringify({ ItemName: itemName, ItemCode: itemCode}),
                     dataType: 'json',
-                    /*success: function (data) {
-                        console.log(data);
-                        input.autocomplete({
-                            source: data.d
-                        });
-                    },*/
                     success: function (data) {
                         var items = data.d;
-                        //console.log(data.d);
+                       
                         //items.forEach(function (item) {
                         //    console.log(item.ItemCode);
                         //    console.log(item.ItemName);
@@ -388,7 +384,6 @@
                         //    console.log(item.Price);
                         //    console.log(item.Discount);
                         //});
-
                         input.autocomplete({
                             source: function (request, response) {
                                 var filteredItems = items.filter(function (item) {
@@ -397,23 +392,35 @@
                                     //console.log("item.GST: ", item.GST);
                                     //console.log("item.Price: ", item.Price);
                                     //console.log("item.Discount: ", item.Discount);
-                                    return (
-                                        item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 ||
-                                        item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1
-                                    );
+                                    return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
+                                    
                                 });
-                                /*console.log(filteredItems);*/
-                                response(filteredItems);
+                                /*console.log(filteredItems); */
+                                //response(filteredItems);
+                                response($.map(filteredItems, function (item) {
+                                    return {
+                                        label: item.ItemCode,
+                                        value: item.ItemCode,
+                                        id: item.ItemCode,
+                                        gst: item.GST,
+                                        price: item.Price,
+                                        discount: item.Discount
+                                    };
+                                }));
                             },
                             select: function (event, ui) {
-                                var item = ui.items;
-                                /*var item = event.item*/
-                                console.log(item);
-                                $('.itemcode').val(item.ItemCode);
-                                $('.itemname').val(item.ItemName);
-                                $('.gst').val(item.GST);
-                                $('.price').val(item.Price);
-                                $('.discount').val(item.Discount);
+                                console.log("Event: ", event);
+                                console.log("UI: ", ui);
+                                var item = ui.item;
+                                if (item) {
+                                    $('.itemcode').val(item.ItemCode);
+                                    $('.itemname').val(item.ItemName);
+                                    $('.gst').val(item.GST);
+                                    $('.price').val(item.Price);
+                                    $('.discount').val(item.Discount);
+                                } else {
+                                    console.log("Selected item is not found in the items source");
+                                }
                             }
                         });
                     },
@@ -429,3 +436,60 @@
 </html>
 
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
+
+<%--   $(document).on('keydown', '.username', function() {
+ 
+     var id = this.id;
+     var splitid = id.split('_');
+     var index = splitid[1];
+
+     // Initialize jQuery UI autocomplete
+     $( '#'+id ).autocomplete({
+        source: function( request, response ) {
+           $.ajax({
+              url: "ajaxfile.php",
+              type: 'post',
+              dataType: "json",
+              data: {
+                 search: request.term,request:1
+              },
+              success: function( data ) {
+                 response( data );
+              }
+           });
+        },
+        select: function (event, ui) {
+           $(this).val(ui.item.label); // display the selected text
+           var userid = ui.item.value; // selected value
+
+           // AJAX
+           $.ajax({
+              url: 'ajaxfile.php',
+              type: 'post',
+              data: {userid:userid,request:2},
+              dataType: 'json',
+              success:function(response){
+ 
+                 var len = response.length;
+
+                 if(len > 0){
+                    var id = response[0]['id'];
+                    var name = response[0]['name'];
+                    var email = response[0]['email'];
+                    var age = response[0]['age'];
+                    var salary = response[0]['salary'];
+
+                    // Set value to textboxes
+                    document.getElementById('name_'+index).value = name;
+                    document.getElementById('age_'+index).value = age;
+                    document.getElementById('email_'+index).value = email;
+                    document.getElementById('salary_'+index).value = salary;
+ 
+                 }
+ 
+              }
+           });
+
+           return false;
+        }
+     }); --%>
