@@ -354,7 +354,59 @@
                 },
             });
         } */
-
+        //*********************************************************************************
+        //function ItemName1() {
+        //    $(document).on('input', '.itemcode, .itemname', function () {
+        //        var id = this.id;
+        //        var splitid = id.split('_');
+        //        var index = splitid[1];
+        //        // Initialize jQuery UI autocomplete
+        //        input.autocomplete({
+        //            source: function (request, response) {
+        //                $.ajax({
+        //                    url: '/Customer.asmx/Itemcode1',
+        //                    type: 'post',
+        //                    dataType: "json",
+        //                    data: {
+        //                        search: request.term, request: 1
+        //                    },
+        //                    success: function (data) {
+        //                        response(data);
+        //                    }
+        //                });
+        //            },
+        //            select: function (event, ui) {
+        //                $(this).val(ui.item.label); // display the selected text
+        //                var itemcode = ui.item.value; // selected value
+        //                var itemname = ui.item.value;
+        //                // AJAX
+        //                $.ajax({
+        //                    url: '/Customer.asmx/Itemcode1',
+        //                    type: 'post',
+        //                    data: { ItemCode: itemcode, ItemName: itemname, request: 2 },
+        //                    dataType: 'json',
+        //                    success: function (response) {
+        //                        var len = response.length;
+        //                        if (len > 0) {
+        //                            var itemcode = response[0]['itemcode'];
+        //                            var itemname = response[0]['itemname'];
+        //                            var gst = response[0]['gst'];
+        //                            var price = response[0]['price'];
+        //                            var discount = response[0]['discount'];
+        //                            // Set value to textboxes
+        //                            $(".itemcode").val(itemcode);
+        //                            $(".itemname").val(itemname);
+        //                            $(".gst").val(gst);
+        //                            $(".price").val(price);
+        //                            $(".discount").val(discount);
+        //                        }
+        //                    }
+        //                });
+        //                return false;
+        //            }
+        //        });
+        //}
+        //***************************************************************************************
        //-----------------------------------------------------
         function ItemName1() {
             $(document).on('input', '.itemcode, .itemname', function () {
@@ -370,7 +422,6 @@
                     dataType: 'json',
                     success: function (data) {
                         var items = data.d;
-                       
                         //items.forEach(function (item) {
                         //    console.log(item.ItemCode);
                         //    console.log(item.ItemName);
@@ -387,31 +438,31 @@
                                     //console.log("item.Price: ", item.Price);
                                     //console.log("item.Discount: ", item.Discount);
                                     return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
-                                    
                                 });
                                 /*console.log(filteredItems); */
-                                //response(filteredItems);
-                                response($.map(filteredItems, function (item) {
-                                    return {
-                                        label: item.ItemCode,
-                                        value: item.ItemCode,
-                                        id: item.ItemCode,
-                                        gst: item.GST,
-                                        price: item.Price,
-                                        discount: item.Discount
-                                    };
-                                }));
+                                response(filteredItems);
+                                //response($.map(filteredItems, function (item) {
+                                //    return {
+                                //        //label: item.ItemCode,
+                                //        //value: '',
+                                //        //label: item.ItemName,
+                                //        //label: item.ItemCode,
+                                //        //label: item.GST,
+                                //        //label: item.Price,
+                                //        //label: item.Discount
+                                //    };
+                                //}));
                             },
                             select: function (event, ui) {
-                                console.log("Event: ", event);
-                                console.log("UI: ", ui);
-                                var item = ui.item;
-                                if (item) {
-                                    $('.itemcode').val(item.ItemCode);
-                                    $('.itemname').val(item.ItemName);
-                                    $('.gst').val(item.GST);
-                                    $('.price').val(item.Price);
-                                    $('.discount').val(item.Discount);
+                                //console.log("Event: ", event);
+                                //console.log("UI: ", ui);
+                                var item1 = ui.item1;
+                                if (item1) {
+                                    $('.itemcode').val(item1.ItemCode);
+                                    $('.itemname').val(item1.ItemName);
+                                    $('.gst').val(item1.GST);
+                                    $('.price').val(item1.Price);
+                                    $('.discount').val(item1.Discount);
                                 } else {
                                     console.log("Selected item is not found in the items source");
                                 }
@@ -424,24 +475,24 @@
                     }
                 });
             });
-        }
+        } 
        //----------------------------------------------------- 
     </script>
 </html>
 
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
 
-<%--   $(document).on('keydown', '.username', function() {
+<%--   $(document).on('input', '.itemcode, .itemname', function () {
  
      var id = this.id;
      var splitid = id.split('_');
      var index = splitid[1];
 
      // Initialize jQuery UI autocomplete
-     $( '#'+id ).autocomplete({
+     input.autocomplete({
         source: function( request, response ) {
            $.ajax({
-              url: "ajaxfile.php",
+              url: '/Customer.asmx/Itemcode1',
               type: 'post',
               dataType: "json",
               data: {
@@ -458,29 +509,28 @@
 
            // AJAX
            $.ajax({
-              url: 'ajaxfile.php',
+              url: '/Customer.asmx/Itemcode1',
               type: 'post',
-              data: {userid:userid,request:2},
+              data: {ItemCode:itemcode, ItemName:itemname, request:2},
               dataType: 'json',
               success:function(response){
  
                  var len = response.length;
 
                  if(len > 0){
-                    var id = response[0]['id'];
-                    var name = response[0]['name'];
-                    var email = response[0]['email'];
-                    var age = response[0]['age'];
-                    var salary = response[0]['salary'];
+                    var itemcode = response[0]['itemcode'];
+                    var itemname = response[0]['itemname'];
+                    var GST = response[0]['gst'];
+                    var price = response[0]['price'];
+                    var discount = response[0]['discount'];
 
                     // Set value to textboxes
-                    document.getElementById('name_'+index).value = name;
-                    document.getElementById('age_'+index).value = age;
-                    document.getElementById('email_'+index).value = email;
-                    document.getElementById('salary_'+index).value = salary;
- 
+                    $(".itemcode").val(itemcode);
+                    $(".itemname").val(itemname);
+                    $(".gst").val(gst);
+                    $(".price").val(price);
+                    $(".discount").val(discount);
                  }
- 
               }
            });
 
