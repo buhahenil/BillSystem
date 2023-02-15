@@ -356,7 +356,7 @@
 
     //-----------------------------------------------------
     function ItemName1() {
-        $(document).on('input', '.itemcode', function () {
+        $(document).on('input', '.itemcode','.itemname', function () {
             var input = $(this);
             //var endpoint = '/Customer.asmx/Itemcode1';
             var itemName = input.val();
@@ -385,19 +385,16 @@
                                 //console.log("item.Price: ", item.Price);
                                 //console.log("item.Discount: ", item.Discount);
                                 return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
-                            });
-                            //console.log(filteredItems); 
+                            }); 
                             //response(filteredItems);
+                            console.log(filteredItems);
                             response($.map(filteredItems, function (item) {
                                 return {
                                     label: item.ItemCode,
-                                    //text: item.ItemName,
-                                    value: item.ItemCode,
-                                    //label: item.ItemName,
-                                    //label: item.ItemCode,
-                                    //label: item.GST,
-                                    //label: item.Price,
-                                    //label: item.Discount
+                                    value: item.ItemName,
+                                    GST: item.GST,
+                                    Price: item.Price,
+                                    Discount: item.Discount
                                 };
                             }));
                             //response(items);
@@ -405,9 +402,9 @@
                         select: function (event, ui) {
                             $('.itemcode').val(ui.item.label);
                             $('.itemname').val(ui.item.value);
-                            //$('.gst').val(ui.item.value);
-                            //$('.price').val(ui.item.value);
-                            //$('.discount').val(ui.item.value);
+                            $('.gst').val(ui.item.GST);
+                            $('.price').val(ui.item.Price);
+                            $('.discount').val(ui.item.Discount);
                             return false;
                         }
                     });
@@ -422,7 +419,5 @@
        //-----------------------------------------------------
 </script>
 </html>
-
-<%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
 
 <%-- https://makitweb.com/autocomplete-data-on-multiple-fields-with-jquery-and-ajax/ --%>
