@@ -122,3 +122,4 @@ namespace BillSystem
         }
     }
 }
+//ItemName = Convert.ToString(rdr["ItemName"])
