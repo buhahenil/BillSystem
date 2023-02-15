@@ -50,7 +50,7 @@
                     <tbody id="tblPage">
                         <tr id="Trow" class="d-none">
                             <td>
-                                <input type="text" placeholder="Search" class="itemcode" onkeyup="ItemName1()" />
+                                <input type="text" placeholder="Search" class="itemcode" onkeyup="ItemCode1()" />
                             </td>
 
                             <td>
@@ -191,7 +191,7 @@
             }
 
         });
-        ItemName1();
+        /*ItemName1();*/
         //add button click than row AND delete
         /*var rowCount = 0;
         $('#addnewrow').on('click', function () {
@@ -206,6 +206,7 @@
             $(row).find("input").val('');
             $(row).removeClass('d-none');
             //calculateSubTotal();
+            ItemName1();
         });
 
         // Row Delete
@@ -355,8 +356,8 @@
     } */
 
     //-----------------------------------------------------
-    function ItemName1() {
-        $(document).on('input', '.itemcode','.itemname', function () {
+    function ItemCode1() {
+        $(document).on('input', '.itemcode','.itemname' , function () {
             var input = $(this);
             //var endpoint = '/Customer.asmx/Itemcode1';
             var itemName = input.val();
@@ -369,21 +370,9 @@
                 dataType: 'json',
                 success: function (data) {
                     var items = data.d;
-                    //items.forEach(function (item) {
-                    //    console.log(item.ItemCode);
-                    //    console.log(item.ItemName);
-                    //    console.log(item.GST);
-                    //    console.log(item.Price);
-                    //    console.log(item.Discount);
-                    //});
                     input.autocomplete({
                         source: function (request, response) {
                             var filteredItems = items.filter(function (item) {
-                                //console.log("item.ItemCode: ", item.ItemCode);
-                                //console.log("item.ItemName: ", item.ItemName);
-                                //console.log("item.GST: ", item.GST);
-                                //console.log("item.Price: ", item.Price);
-                                //console.log("item.Discount: ", item.Discount);
                                 return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
                             }); 
                             //response(filteredItems);
@@ -416,7 +405,57 @@
             });
         });
     }
-       //-----------------------------------------------------
+
+    function ItemName1() {
+        $(document).on('input', '.itemcode', '.itemname', function () {
+            var input = $(this);
+            //var endpoint = '/Customer.asmx/Itemcode1';
+            var itemName = input.val();
+            var itemCode = input.val();
+            $.ajax({
+                url: '/Customer.asmx/Itemcode1',
+                method: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ ItemCode: itemCode, ItemName: itemName }),
+                dataType: 'json',
+                success: function (data) {
+                    var items = data.d;
+                    input.autocomplete({
+                        source: function (request, response) {
+                            var filteredItems = items.filter(function (item) {
+                                return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
+                            });
+                            //response(filteredItems);
+                            console.log(filteredItems);
+                            response($.map(filteredItems, function (item) {
+                                return {
+                                    label: item.ItemName,
+                                    value: item.ItemCode,
+                                    GST: item.GST,
+                                    Price: item.Price,
+                                    Discount: item.Discount
+                                };
+                            }));
+                            //response(items);
+                        },
+                        select: function (event, ui) {
+                            $('.itemname').val(ui.item.label);
+                            $('.itemcode').val(ui.item.value);
+                            $('.gst').val(ui.item.GST);
+                            $('.price').val(ui.item.Price);
+                            $('.discount').val(ui.item.Discount);
+                            return false;
+                        }
+                    });
+                },
+                error: function (err) {
+                    //console.error(err);
+                    alert("An error occurred while trying to retrieve the item names.");
+                }
+            });
+        });
+    }
+    //-----------------------------------------------------
 </script>
 </html>
 
