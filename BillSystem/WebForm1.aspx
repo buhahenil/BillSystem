@@ -230,7 +230,22 @@
         //    $(this).parent().parent().remove();
         //    calc(this);
         //});
+        $('#btnSubmit').click(function () {
+            var orderdeta = {};
+            orderdeta.TotalAmount = $("#txtTotal").val();
+            orderdeta.AdjustmentDiscountType = $("#discountType").val();
+            orderdeta.AdjustmentDiscount = $("#txtAdjDiscount").val();
+            orderdeta.GSTAmount = $("#txtGSTAmount").val();
+            orderdeta.BillableAmount = $("#txtBillableAmount").val();
+            var arr = [];
+            $("input:checkbox[class=ads_Checkbox]:checked").each(function () {
+                arr.push($(this).val());
+            });
+            orderdeta.CustomerPayment = arr.toString();
 
+            
+
+        }
     });
     function calc(v) {
 
@@ -273,7 +288,6 @@
                 gstSum += value;
         });
         $("#txtGSTAmount").val(gstSum.toFixed(2));
-
 
         // Adjustment Discount
         //var Total = $('#txtTotal').val();
@@ -495,6 +509,7 @@
             $("#txtBillableAmount").val(discount.toFixed(2));
         }
     }
+    
 </script>
 </html>
 
