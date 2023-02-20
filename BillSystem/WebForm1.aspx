@@ -111,8 +111,9 @@
                             <td>
                                 <%--<input type="text" id="txtAdjustmentType" name="AdjustmentDiscountType" placeholder="Adjustment Discount Type" />--%>
                                     <select name="AdjustmentDiscountType" id="discountType" >
-                                        <option  value="Amount" >Amount</option>
-                                        <option  value="Percentage" >Percentage</option>
+                                        <option  value="Select Option" >Select Option</option>
+                                        <option  value="amount" >Amount</option>
+                                        <option  value="percentage" >Percentage</option>
                                     </select>
                             </td>
                         </tr>
@@ -273,12 +274,14 @@
         });
         $("#txtGSTAmount").val(gstSum.toFixed(2));
 
-        // Adjustment Discount
-        var Total = $('#txtTotal').val();
-        var AdjustmentDiscount = $('#txtAdjDiscount').val();
-        var Bill = (Total - AdjustmentDiscount);
-        $("#txtBillableAmount").val(Bill.toFixed(2));
 
+        // Adjustment Discount
+        //var Total = $('#txtTotal').val();
+        //var AdjustmentDiscount = $('#txtAdjDiscount').val();
+        //var Bill = (Total - AdjustmentDiscount);
+        //$("#txtBillableAmount").val(Bill.toFixed(2));
+
+        
         //ItemCode1();
         //ItemName2();
         /*var GST = parseFloat($(v).parent().parent().find("#gst").val());
@@ -468,7 +471,7 @@
             calculateDiscount();
         });
 
-        $('#discountType').change(function () {
+        $('#txtAdjDiscount').change(function () {
             calculateDiscount();
         });
     });
@@ -479,31 +482,19 @@
         var discountValue = parseFloat($('#txtAdjDiscount').val());
 
         if (discountType === 'amount') {
-            var discount = discountValue;
+            //var discount = discountValue;
+            var discount = (total - discountValue);
+            console.log(discount);
+            $("#txtBillableAmount").val(discount.toFixed(2));
+
         } else if (discountType === 'percentage') {
-            var discount = total * (discountValue / 100);
+            var per = total * (discountValue / 100);
+            var discount = total - per;
+            console.log(per);
+            console.log(discount);
+            $("#txtBillableAmount").val(discount.toFixed(2));
         }
-
-        var newTotal = total - discount;
-        console.log('New Total: ' + newTotal);
     }
-    //function AdjustmentDiscount()
-    //{
-    //    $('#discountType').change(function () {
-    //        var selectedValue = $(this).val();
-    //        if (selectedValue === 'amount') {
-    //            var discountAmount = discount;
-    //            var discountedPrice = price - discountAmount;
-    //            var discountPercentage = (discount / price) * 100;
-    //        } else if (selectedValue === 'percentage') {
-    //            var discountPercentage = discount;
-    //            var discountAmount = (discount / 100) * price;
-    //            var discountedPrice = price - discountAmount;
-    //        }
-    //    });
-    //}
-
-    
 </script>
 </html>
 
