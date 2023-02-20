@@ -243,9 +243,9 @@
             });
             orderdeta.CustomerPayment = arr.toString();
 
-            
 
-        }
+
+        });
     });
     function calc(v) {
 
