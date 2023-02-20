@@ -109,7 +109,11 @@
                                 <span id="lblAdjustment">Adjustment Discount Type</span>
                             </td>
                             <td>
-                                <input type="text" id="txtAdjustmentType" name="AdjustmentDiscountType" placeholder="Adjustment Discount Type" />
+                                <%--<input type="text" id="txtAdjustmentType" name="AdjustmentDiscountType" placeholder="Adjustment Discount Type" />--%>
+                                    <select name="AdjustmentDiscountType" id="discountType" >
+                                        <option  value="Amount" >Amount</option>
+                                        <option  value="Percentage" >Percentage</option>
+                                    </select>
                             </td>
                         </tr>
                         <tr>
@@ -193,36 +197,38 @@
         });
         
         //add button click than row AND delete
-        //var rowCount = 0;
-        //$('#addnewrow').on('click', function () {
-        //    rowCount++;
-        //    $('#tblPage').append(" <tr id='Newrow" + rowCount + "' /*class='d-none'*/> <td><input type='text' id='itemcode" + rowCount + "' placeholder='Search Item Code' class='itemcode' onkeyup='ItemCode1()' for='" + rowCount + "'/></td> <td><input type='text' id='itemname" + rowCount + "' placeholder='Search Item Name' class='itemname' onkeyup='ItemName2()' for='" + rowCount + "'/></td> <td><input type='number' id='gst" + rowCount + "' class='gst' name='GST1' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='price" + rowCount + "' class='price' name='Price' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='pricewithgst" + rowCount + "' name='Price with GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='priwithgst" + rowCount + "' placeholder='GST(Price with GST - Price)' name='GST(PricewithGST-Price)' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='qty" + rowCount + "' onchange='calc(this)' name='QTY' for='" + rowCount + "'/></td> <td><input type='number' id='discount" + rowCount + "' class='discount' name='Discount' onchange='calc(this)' for='" + rowCount + "'/></td><td><input type='number' id='totalgst" + rowCount + "' class='gstTotal' name='Total GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='totalwithgstanddiscount" + rowCount + "' class='total' name='Total with GST and Discount' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='button' name='remove' id='" + rowCount + "' class='btn_remove' value='Delete'/></td></tr>");
-        //    console.log(rowCount);
-        //    ItemCode1();
-        //    ItemName2();
-        //});
-        //$('#tblPage').on('click', '.btn_remove', function () {
-        //    var button_id = $(this).attr('id');
-        //    console.log(button_id);
-        //    $('#Newrow' + button_id + '').remove();
-        //    calc(this);
-        //}); 
-
-        //Add New Row
-        $('#addnewrow').click(function () {
-            var row = $("#Trow").clone().appendTo("#tblPage");
-            $(row).find("input").val('');
-            $(row).removeClass('d-none');
+        var rowCount = 0;
+        $('#addnewrow').on('click', function () {
+            rowCount++;
+            $('#tblPage').append(" <tr id='Newrow" + rowCount + "' /*class='d-none'*/> <td><input type='text' id='itemcode" + rowCount + "' placeholder='Search Item Code' class='itemcode' onkeyup='ItemCode1()' for='" + rowCount + "'/></td> <td><input type='text' id='itemname" + rowCount + "' placeholder='Search Item Name' class='itemname' onkeyup='ItemName2()' for='" + rowCount + "'/></td> <td><input type='number' id='gst" + rowCount + "' class='gst' name='GST1' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='price" + rowCount + "' class='price' name='Price' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='pricewithgst" + rowCount + "' name='Price with GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='priwithgst" + rowCount + "' placeholder='GST(Price with GST - Price)' name='GST(PricewithGST-Price)' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='qty" + rowCount + "' onchange='calc(this)' name='QTY' for='" + rowCount + "'/></td> <td><input type='number' id='discount" + rowCount + "' class='discount' name='Discount' onchange='calc(this)' for='" + rowCount + "'/></td><td><input type='number' id='totalgst" + rowCount + "' class='gstTotal' name='Total GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='totalwithgstanddiscount" + rowCount + "' class='total' name='Total with GST and Discount' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='button' name='remove' id='" + rowCount + "' class='btn_remove' value='Delete'/></td></tr>");
+            //console.log(rowCount);
             ItemCode1();
             ItemName2();
-        });  
+        });
+        $('#tblPage').on('click', '.btn_remove', function () {
+            var button_id = $(this).attr('id');
+            //console.log(button_id);
+            $('#Newrow' + button_id + '').remove();
+            calc(this);
+            ItemCode1();
+            ItemName2();
+        }); 
+
+        //Add New Row
+        //$('#addnewrow').click(function () {
+        //    var row = $("#Trow").clone().appendTo("#tblPage");
+        //    $(row).find("input").val('');
+        //    $(row).removeClass('d-none');
+        //    ItemCode1();
+        //    ItemName2();
+        //});  
 
         // Row Delete
 
-        $('tbody').on('click', '#rowdelete', function () {
-            $(this).parent().parent().remove();
-            calc(this);
-        });
+        //$('tbody').on('click', '#rowdelete', function () {
+        //    $(this).parent().parent().remove();
+        //    calc(this);
+        //});
 
     });
     function calc(v) {
@@ -355,7 +361,7 @@
         $(document).on('input', '.itemcode','.itemname' , function () {
             var input = $(this);
             //var endpoint = '/Customer.asmx/Itemcode1';
-            //var $row = $(v).closest('tr');
+            var row = input.closest('tr');  // find current row for use.
             var itemName = input.val();
             var itemCode = input.val();
             $.ajax({
@@ -372,7 +378,7 @@
                                 return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
                             }); 
                             //response(filteredItems);
-                            console.log(filteredItems);
+                            //console.log(filteredItems);
                             response($.map(filteredItems, function (item) {
                                 return {
                                     label: item.ItemCode,
@@ -385,11 +391,12 @@
                             //response(items);
                         },
                         select: function (event, ui) {
-                            $('.itemcode').val(ui.item.label);
-                            $('.itemname').val(ui.item.value);
-                            $('.gst').val(ui.item.GST);
-                            $('.price').val(ui.item.Price);
-                            $('.discount').val(ui.item.Discount);
+                            //row.find is find current row .
+                            row.find('.itemcode').val(ui.item.label); 
+                            row.find('.itemname').val(ui.item.value);
+                            row.find('.gst').val(ui.item.GST);
+                            row.find('.price').val(ui.item.Price);
+                            row.find('.discount').val(ui.item.Discount);
                             return false;
                         }
                     });
@@ -406,6 +413,7 @@
         $(document).on('input', '.itemname','.itemcode', function () {
             var input = $(this);
             //var endpoint = '/Customer.asmx/Itemcode1';
+            var row = input.closest('tr');
             var itemName = input.val();
             var itemCode = input.val();
             $.ajax({
@@ -422,7 +430,7 @@
                                 return (item.ItemCode.toLowerCase().indexOf(request.term.toLowerCase()) > -1 || item.ItemName.toLowerCase().indexOf(request.term.toLowerCase()) > -1);
                             }); 
                             //response(filteredItems);
-                            console.log(filteredItems);
+                            //console.log(filteredItems);
                             response($.map(filteredItems, function (item) {
                                 return {
                                     label: item.ItemName,
@@ -436,11 +444,11 @@
                             //response(items);
                         },
                         select: function (event, ui) {
-                            $('.itemcode').val(ui.item.ItemCode);
-                            $('.itemname').val(ui.item.value);
-                            $('.gst').val(ui.item.GST);
-                            $('.price').val(ui.item.Price);
-                            $('.discount').val(ui.item.Discount);
+                            row.find('.itemcode').val(ui.item.ItemCode);
+                            row.find('.itemname').val(ui.item.value);
+                            row.find('.gst').val(ui.item.GST);
+                            row.find('.price').val(ui.item.Price);
+                            row.find('.discount').val(ui.item.Discount);
                             return false;
                         }
                     });
@@ -453,6 +461,49 @@
         });
     }
     //-----------------------------------------------------
+
+    //Adjustment Discount Type function
+    $(document).ready(function () {
+        $('#discountType').change(function () {
+            calculateDiscount();
+        });
+
+        $('#discountType').change(function () {
+            calculateDiscount();
+        });
+    });
+
+    function calculateDiscount() {
+        var total = parseFloat($('#txtTotal').val());
+        var discountType = $('#discountType').val();
+        var discountValue = parseFloat($('#txtAdjDiscount').val());
+
+        if (discountType === 'amount') {
+            var discount = discountValue;
+        } else if (discountType === 'percentage') {
+            var discount = total * (discountValue / 100);
+        }
+
+        var newTotal = total - discount;
+        console.log('New Total: ' + newTotal);
+    }
+    //function AdjustmentDiscount()
+    //{
+    //    $('#discountType').change(function () {
+    //        var selectedValue = $(this).val();
+    //        if (selectedValue === 'amount') {
+    //            var discountAmount = discount;
+    //            var discountedPrice = price - discountAmount;
+    //            var discountPercentage = (discount / price) * 100;
+    //        } else if (selectedValue === 'percentage') {
+    //            var discountPercentage = discount;
+    //            var discountAmount = (discount / 100) * price;
+    //            var discountedPrice = price - discountAmount;
+    //        }
+    //    });
+    //}
+
+    
 </script>
 </html>
 
