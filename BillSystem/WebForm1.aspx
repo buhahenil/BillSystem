@@ -252,7 +252,9 @@
             itemlist.QTY = $('#qty' + rowCount + '').val();
             itemlist.Discount = $('#discount' + rowCount + '').val();
             itemlist.TotalGST = $('#totalgst' + rowCount + '').val();
-            itemlist.TotalwithGSTandDiscount = $('#' + rowCount + '').val();
+            itemlist.TotalwithGSTandDiscount = $('#totalwithgstanddiscount' + rowCount + '').val();
+
+            
 
             var cusname = {}; // customer name
             cusname.CustomerFirstName = $('#cusFirstName');
