@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="Classes\Customer.cs" />
     <Compile Include="Classes\Itemfetch.cs" />
+    <Compile Include="Classes\Result.cs" />
     <Compile Include="Customer.asmx.cs">
       <DependentUpon>Customer.asmx</DependentUpon>
       <SubType>Component</SubType>

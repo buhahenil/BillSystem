@@ -194,7 +194,6 @@
                     }
                 });
             }
-
         });
         
         //add button click than row AND delete
@@ -202,7 +201,7 @@
         $('#addnewrow').on('click', function () {
             rowCount++;
             $('#tblPage').append(" <tr id='Newrow" + rowCount + "' /*class='d-none'*/> <td><input type='text' id='itemcode" + rowCount + "' placeholder='Search Item Code' class='itemcode' onkeyup='ItemCode1()' for='" + rowCount + "'/></td> <td><input type='text' id='itemname" + rowCount + "' placeholder='Search Item Name' class='itemname' onkeyup='ItemName2()' for='" + rowCount + "'/></td> <td><input type='number' id='gst" + rowCount + "' class='gst' name='GST1' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='price" + rowCount + "' class='price' name='Price' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='pricewithgst" + rowCount + "' name='Price with GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='priwithgst" + rowCount + "' placeholder='GST(Price with GST - Price)' name='GST(PricewithGST-Price)' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='qty" + rowCount + "' onchange='calc(this)' name='QTY' for='" + rowCount + "'/></td> <td><input type='number' id='discount" + rowCount + "' class='discount' name='Discount' onchange='calc(this)' for='" + rowCount + "'/></td><td><input type='number' id='totalgst" + rowCount + "' class='gstTotal' name='Total GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='totalwithgstanddiscount" + rowCount + "' class='total' name='Total with GST and Discount' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='button' name='remove' id='" + rowCount + "' class='btn_remove' value='Delete'/></td></tr>");
-            //console.log(rowCount);
+            console.log(rowCount);
             ItemCode1();
             ItemName2();
         });
@@ -243,7 +242,47 @@
             });
             orderdeta.CustomerPayment = arr.toString();
 
+            var itemlist = {};
+            itemlist.ItemCode = $('#itemcode' + rowCount + '').val();
+            itemlist.ItemName = $('#itemname' + rowCount + '').val();
+            itemlist.GST = $('#gst' + rowCount + '').val();
+            itemlist.Price = $('#price' + rowCount + '').val();
+            itemlist.priwithgst =$('#priwithgst' + rowCount + '').val();
+            itemlist.GST2 = $('#priwithgst' + rowCount + '').val();
+            itemlist.QTY = $('#qty' + rowCount + '').val();
+            itemlist.Discount = $('#discount' + rowCount + '').val();
+            itemlist.TotalGST = $('#totalgst' + rowCount + '').val();
+            itemlist.TotalwithGSTandDiscount = $('#' + rowCount + '').val();
 
+            var cusname = {}; // customer name
+            cusname.CustomerFirstName = $('#cusFirstName');
+
+            var array = {
+                itarray:[]
+            };
+            array.itarray.push(cusname,orderdeta, itemlist);
+
+
+            var values = {};
+            values.orderdetails = JSON.stringify(array);
+            $.ajax({
+                type: "POST",
+                url: "/Customer.asmx/orderdetail",
+                data: JSON.stringify(values),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.d != null && !data.d.success && data.d.error != null) {
+                        alert(data.d.error);
+                    }
+                    //debugger;
+                    console.log(data);
+                },
+                error: function (err) {
+                    //debugger;
+                    console.log(err);
+                }
+            });
 
         });
     });
