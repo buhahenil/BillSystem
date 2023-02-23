@@ -121,6 +121,7 @@ namespace BillSystem
             return listitemcode;
         }
 
+        [WebMethod]
         public Result orderdetail(string orderdeta)
         {
             Result result = new Result();
@@ -155,7 +156,7 @@ namespace BillSystem
                 cmd.Parameters.Add(new SqlParameter()
                 {
                     ParameterName = "@PricewithGST",
-                    Value = orderdetails.priwithgst
+                    Value = orderdetails.Priwithgst
                 });
                 cmd.Parameters.Add(new SqlParameter()
                 {

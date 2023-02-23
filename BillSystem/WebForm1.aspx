@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="BillSystem.WebForm1" %>
+﻿ <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="BillSystem.WebForm1" %>
 
 <!DOCTYPE html>
 
@@ -7,6 +7,8 @@
     <title></title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    
+
 </head>
 <body>
     <form id="form1" runat="server" method="post">
@@ -66,15 +68,15 @@
                             </td>
 
                             <td>
-                                <input type="number" id="pricewithgst" name="Price with GST" readonly="readonly" />
+                                <input type="number" id="pricewithgst" class="pricewithgst" name="Price with GST" readonly="readonly" />
                             </td>
 
                             <td>
-                                <input type="number" id="priwithgst" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly" />
+                                <input type="number" id="priwithgst" class="priwithgs" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly" />
                             </td>
 
                             <td>
-                                <input type="number" id="qty" onchange="calc(this)" name="QTY" />
+                                <input type="number" id="qty" class="qty" onchange="calc(this)" name="QTY" />
                             </td>
 
                             <td>
@@ -229,7 +231,10 @@
         //    $(this).parent().parent().remove();
         //    calc(this);
         //});
+
         $('#btnSubmit').click(function () {
+            
+
             var orderdeta = {};
             orderdeta.TotalAmount = $("#txtTotal").val();
             orderdeta.AdjustmentDiscountType = $("#discountType").val();
@@ -243,18 +248,22 @@
             orderdeta.CustomerPayment = arr.toString();
 
             var itemlist = {};
-            itemlist.ItemCode = $('#itemcode' + rowCount + '').val();
-            itemlist.ItemName = $('#itemname' + rowCount + '').val();
-            itemlist.GST = $('#gst' + rowCount + '').val();
-            itemlist.Price = $('#price' + rowCount + '').val();
-            itemlist.priwithgst =$('#priwithgst' + rowCount + '').val();
-            itemlist.GST2 = $('#priwithgst' + rowCount + '').val();
-            itemlist.QTY = $('#qty' + rowCount + '').val();
-            itemlist.Discount = $('#discount' + rowCount + '').val();
-            itemlist.TotalGST = $('#totalgst' + rowCount + '').val();
-            itemlist.TotalwithGSTandDiscount = $('#totalwithgstanddiscount' + rowCount + '').val();
 
-            
+            $('#tblPage tr').each(function (index) {
+            var rowObject = {}; // create a new object for this row
+            rowObject.ItemCode = $(this).find('.itemcode').val();
+            rowObject.ItemName = $(this).find('.itemname').val();
+            rowObject.GST = $(this).find('.gst').val();
+            rowObject.Price = $(this).find('.price').val();
+            rowObject.priwithgst = $(this).find('.pricewithgst').val();
+            rowObject.GST2 = $(this).find('.priwithgs').val();
+            rowObject.QTY = $(this).find('.qty').val();
+            rowObject.Discount = $(this).find('.discount').val();
+            rowObject.TotalGST = $(this).find('.totalgst').val();
+            rowObject.TotalwithGSTandDiscount = $(this).find('.total').val();
+            itemlist['row_' + index] = rowObject; // add the row object to the itemlist object
+            });
+
 
             var cusname = {}; // customer name
             cusname.CustomerFirstName = $('#cusFirstName');
@@ -262,6 +271,7 @@
             var array = {
                 itarray:[]
             };
+
             array.itarray.push(cusname,orderdeta, itemlist);
 
 
@@ -287,6 +297,7 @@
             });
 
         });
+
     });
     function calc(v) {
 
