@@ -7,7 +7,9 @@
     <title></title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
-    
+    <style>
+         
+    </style>
 
 </head>
 <body>
@@ -72,7 +74,7 @@
                             </td>
 
                             <td>
-                                <input type="number" id="priwithgst" class="priwithgs" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" readonly="readonly" />
+                                <input type="number" id="priwithgst" class="priwithgs1" placeholder="GST(Price with GST - Price)" name="GST(PricewithGST-Price)" <%--readonly="readonly"--%> />
                             </td>
 
                             <td>
@@ -202,7 +204,7 @@
         var rowCount = 0;
         $('#addnewrow').on('click', function () {
             rowCount++;
-            $('#tblPage').append(" <tr id='Newrow" + rowCount + "' /*class='d-none'*/> <td><input type='text' id='itemcode" + rowCount + "' placeholder='Search Item Code' class='itemcode' onkeyup='ItemCode1()' for='" + rowCount + "'/></td> <td><input type='text' id='itemname" + rowCount + "' placeholder='Search Item Name' class='itemname' onkeyup='ItemName2()' for='" + rowCount + "'/></td> <td><input type='number' id='gst" + rowCount + "' class='gst' name='GST1' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='price" + rowCount + "' class='price' name='Price' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='pricewithgst" + rowCount + "' name='Price with GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='priwithgst" + rowCount + "' placeholder='GST(Price with GST - Price)' name='GST(PricewithGST-Price)' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='qty" + rowCount + "' onchange='calc(this)' name='QTY' for='" + rowCount + "'/></td> <td><input type='number' id='discount" + rowCount + "' class='discount' name='Discount' onchange='calc(this)' for='" + rowCount + "'/></td><td><input type='number' id='totalgst" + rowCount + "' class='gstTotal' name='Total GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='totalwithgstanddiscount" + rowCount + "' class='total' name='Total with GST and Discount' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='button' name='remove' id='" + rowCount + "' class='btn_remove' value='Delete'/></td></tr>");
+            $('#tblPage').append(" <tr id='Newrow" + rowCount + "'> <td><input type='text' id='itemcode" + rowCount + "' placeholder='Search Item Code' class='itemcode' onkeyup='ItemCode1()' for='" + rowCount + "'/></td> <td><input type='text' id='itemname" + rowCount + "' placeholder='Search Item Name' class='itemname' onkeyup='ItemName2()' for='" + rowCount + "'/></td> <td><input type='number' id='gst" + rowCount + "' class='gst' name='GST1' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='price" + rowCount + "' class='price' name='Price' onchange='calc(this)' for='" + rowCount + "'/></td> <td><input type='number' id='pricewithgst" + rowCount + "' name='Price with GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='priwithgst" + rowCount + "' placeholder='GST(Price with GST - Price)' name='GST(PricewithGST-Price)' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='qty" + rowCount + "' onchange='calc(this)' name='QTY' for='" + rowCount + "'/></td> <td><input type='number' id='discount" + rowCount + "' class='discount' name='Discount' onchange='calc(this)' for='" + rowCount + "'/></td><td><input type='number' id='totalgst" + rowCount + "' class='gstTotal' name='Total GST' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='number' id='totalwithgstanddiscount" + rowCount + "' class='total' name='Total with GST and Discount' readonly='readonly' for='" + rowCount + "'/></td> <td><input type='button' name='remove' id='" + rowCount + "' class='btn_remove' value='Delete'/></td></tr>");
             console.log(rowCount);
             ItemCode1();
             ItemName2();
@@ -255,11 +257,11 @@
             rowObject.ItemName = $(this).find('.itemname').val();
             rowObject.GST = $(this).find('.gst').val();
             rowObject.Price = $(this).find('.price').val();
-            rowObject.priwithgst = $(this).find('.pricewithgst').val();
-            rowObject.GST2 = $(this).find('.priwithgs').val();
+                rowObject.priwithgst = $(this).find('.pricewithgst').val();
+            rowObject.GST2 = $(this).find('.pricewithgst1').val();
             rowObject.QTY = $(this).find('.qty').val();
             rowObject.Discount = $(this).find('.discount').val();
-            rowObject.TotalGST = $(this).find('.totalgst').val();
+            rowObject.TotalGST = $(this).find('.gstTotal').val();
             rowObject.TotalwithGSTandDiscount = $(this).find('.total').val();
             itemlist['row_' + index] = rowObject; // add the row object to the itemlist object
             });
@@ -295,9 +297,7 @@
                     console.log(err);
                 }
             });
-
         });
-
     });
     function calc(v) {
 
